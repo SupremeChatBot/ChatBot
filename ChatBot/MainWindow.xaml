@@ -2,11 +2,100 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ChatBot"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="true">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
     <Grid>
+        <Border Background="#000034"
+                CornerRadius="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="720"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                </Grid.RowDefinitions>
 
+                <TextBlock Grid.Column="0" HorizontalAlignment="Stretch"  MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">Handy Dandy</TextBlock>
+                
+                <Grid Grid.Column="0" Grid.Row="0" Margin="5,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="140"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border CornerRadius="50" Grid.RowSpan="2" Width="60" Height="60">
+                        <Border.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="/Images/chatbot.png"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Grid.Column="1"                               
+                                Text="Chat Bớt"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Foreground="White"
+                                FontSize="27"
+                                FontFamily="/Fonts/#Poppins"
+                                Margin="10,0,0,0"/>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="0,18,30,37">
+
+
+                    <Rectangle Name="rctHeader"  VerticalAlignment="Top"  
+                               Height="40" Fill="CadetBlue" 
+                               PreviewMouseLeftButtonDown="rctHeader_PreviewMouseLeftButtonDown" 
+                               PreviewMouseLeftButtonUp="rctHeader_PreviewMouseLeftButtonUp" PreviewMouseMove="rctHeader_PreviewMouseMove"/>
+
+
+                </Grid>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel >
+                        <RadioButton 
+                            Content="Political news"        
+                            Margin="0,0,0,0"
+                            Height="50" Foreground="White"
+                            FontSize="14"
+                            Style="{StaticResource ConversationListTheme}"/>
+                        <RadioButton 
+                            Content="Political news"        
+                            Margin="0,0,0,0"
+                            Height="50" Foreground="White"
+                            FontSize="14"                            
+                            Style="{StaticResource ConversationListTheme}"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ContentControl Grid.Row="1" Grid.Column="1"
+                                Margin="10"
+                                Content="{Binding CurrentView}">
+
+                </ContentControl>
+
+                <TextBox Width="600"
+                         Height="40"
+                         VerticalContentAlignment="Center"
+                        VerticalAlignment="Bottom"
+                         HorizontalAlignment="Left"
+                        Margin="60,0,0,20" 
+                        Grid.Column="1"
+                         Grid.Row="2"
+                         Style="{StaticResource ModernTextbox}">
+                </TextBox>
+            </Grid>
+        </Border>
     </Grid>
+
+
+
 </Window>
