@@ -6,8 +6,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10"
-                            Background="#353340"
-                            Width="600" Height="40">
+                            Background="{TemplateBinding Background}"
+                            Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <TextBox Margin="1"
@@ -16,6 +16,7 @@
                                      Background="Transparent"
                                      VerticalContentAlignment="Center"
                                      Padding="5"
+                                     FontSize="{TemplateBinding FontSize}"
                                      Foreground="#CFCFCF"/>
                             <TextBlock IsHitTestVisible="False"
                                     Text="Enter your questions here..."

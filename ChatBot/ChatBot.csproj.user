@@ -18,10 +18,13 @@
     <Page Update="MVVM\View\ConversationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\ConversationListTheme.xaml">
+    <Page Update="Theme\ConversationItemTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\TextboxTheme.xaml">
+    <Page Update="Theme\RoundedButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\ModernTextbox.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

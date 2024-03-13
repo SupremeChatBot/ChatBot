@@ -11,10 +11,7 @@
   <ItemGroup>
     <None Remove="Fonts\Poppins-Regular.ttf" />
     <None Remove="Images\chatbot.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\Model\" />
+    <None Remove="Images\send-message.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +21,11 @@
   <ItemGroup>
     <Resource Include="Fonts\Poppins-Regular.ttf" />
     <Resource Include="Images\chatbot.png" />
+    <Resource Include="Images\send-message.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
 </Project>

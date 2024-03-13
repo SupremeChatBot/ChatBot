@@ -27,8 +27,15 @@
                     <RowDefinition Height="75"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" HorizontalAlignment="Stretch"  MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">Handy Dandy</TextBlock>
-                
+                <Grid Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0">
+                    <Thumb 
+                        x:Name="headerThumb" 
+                        Opacity="0" 
+                        Background="{x:Null}" 
+                        Foreground="{x:Null}" 
+                        DragDelta="headerThumb_DragDelta"/>
+                </Grid>
+
                 <Grid Grid.Column="0" Grid.Row="0" Margin="5,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60"></ColumnDefinition>
@@ -49,31 +56,29 @@
                                 Margin="10,0,0,0"/>
                 </Grid>
 
-                <Grid Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="0,18,30,37">
 
-
-                    <Rectangle Name="rctHeader"  VerticalAlignment="Top"  
-                               Height="40" Fill="CadetBlue" 
-                               PreviewMouseLeftButtonDown="rctHeader_PreviewMouseLeftButtonDown" 
-                               PreviewMouseLeftButtonUp="rctHeader_PreviewMouseLeftButtonUp" PreviewMouseMove="rctHeader_PreviewMouseMove"/>
-
-
+                <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,10,0">
+                    <Button x:Name="MinimizeButton" Content="-" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,50,0" Width="30" Height="30" Click="MinimizeButton_Click" Foreground="White" 
+                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"/>
+                    <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Width="30" Height="30" Click="CloseButton_Click" Foreground="White" 
+                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"/>
                 </Grid>
+
+
+
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <StackPanel >
-                        <RadioButton 
-                            Content="Political news"        
-                            Margin="0,0,0,0"
-                            Height="50" Foreground="White"
-                            FontSize="14"
-                            Style="{StaticResource ConversationListTheme}"/>
-                        <RadioButton 
-                            Content="Political news"        
-                            Margin="0,0,0,0"
-                            Height="50" Foreground="White"
-                            FontSize="14"                            
-                            Style="{StaticResource ConversationListTheme}"/>
-                    </StackPanel>
+                    <ListView ItemsSource="{Binding Conversations}" BorderThickness="0" Background="Transparent">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Style="{StaticResource ConversationItemTheme}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </ScrollViewer>
 
                 <ContentControl Grid.Row="1" Grid.Column="1"
@@ -82,20 +87,55 @@
 
                 </ContentControl>
 
-                <TextBox Width="600"
-                         Height="40"
+
+
+                <Button Content="New Chat"   
+                            Background="#000034"
+                            TextBlock.Foreground="White"                            
+                            Grid.Row="2"                             
+                            Grid.Column="0" 
+                            Margin="10,15,10,10"
+                                Style="{StaticResource RoundedButton}"/>
+
+
+                <Grid Grid.Column="1" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="630"></ColumnDefinition>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox                        
+                        Width="630"
+                         Height="52"
+                         FontSize="20"
+                         Foreground="White"
+                         Background="#121212"
                          VerticalContentAlignment="Center"
                         VerticalAlignment="Bottom"
                          HorizontalAlignment="Left"
-                        Margin="60,0,0,20" 
-                        Grid.Column="1"
+                        Margin="0,0,0,8" 
+                        Grid.Column="0"
                          Grid.Row="2"
                          Style="{StaticResource ModernTextbox}">
-                </TextBox>
+                    </TextBox>
+                    <Border CornerRadius="10" Grid.Column="1    ">
+
+                        <Button 
+                             Background="#000034"                            
+                             TextBlock.Foreground="White"                            
+                             Grid.Row="2"                             
+                             Grid.Column="0" 
+                             Margin="10,15,10,10"
+                            Style="{StaticResource RoundedButton}">
+                            <StackPanel>
+                                <Image Source="/Images/send-message.png" Width="40" Height="40"/>
+                            </StackPanel>
+                        </Button>
+                        
+                    </Border>
+                    
+                </Grid>
             </Grid>
         </Border>
     </Grid>
-
-
-
 </Window>
+
