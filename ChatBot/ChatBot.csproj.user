@@ -10,15 +10,30 @@
     <Compile Update="MVVM\View\ConversationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Theme\PersonaItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\ChoosePersona.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Theme\ListViewSpacing.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\PersonaItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\ChoosePersona.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\ConversationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\ConversationItemTheme.xaml">
+    <Page Update="Theme\ConversationItem.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Theme\RoundedButton.xaml">

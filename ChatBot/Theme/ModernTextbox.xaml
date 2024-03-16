@@ -5,7 +5,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border CornerRadius="10"
+                    <Border x:Name="border"
+                            CornerRadius="10"
                             Background="{TemplateBinding Background}"
                             Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <Grid>
@@ -18,29 +19,43 @@
                                      Padding="5"
                                      FontSize="{TemplateBinding FontSize}"
                                      Foreground="#CFCFCF"/>
-                            <TextBlock IsHitTestVisible="False"
+                            <TextBlock
+                                    x:Name="PlaceholderTextblock"
+                                    IsHitTestVisible="False"
                                     Text="Enter your questions here..."
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left"
                                     Margin="10,0,0,0"
                                     FontSize="11"
                                     Foreground="DarkGray"
+                                    Visibility="Hidden"
                                     Grid.Column="1"
                                     >
                                 <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text,ElementName=SearchBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                            <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"></Setter>
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
 
                         </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

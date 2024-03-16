@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="ChatBot.Theme.PersonaItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             mc:Ignorable="d">
+
+    <ToggleButton x:Name="PersonaItemToggleButton" 
+                  Width="{Binding ItemWidth,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                  Height="{Binding ItemHeight,RelativeSource={RelativeSource AncestorType=UserControl}}">
+        <ToggleButton.Template>
+            <ControlTemplate>
+                <Border x:Name="PersonaItemBorder"
+                           Grid.ColumnSpan="2"                              
+                           CornerRadius="20"                                
+                           Background="#000034"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           BorderThickness="{TemplateBinding BorderThickness}"                                 
+                           Width="{Binding ItemWidth,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                           Height="{Binding ItemHeight,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           VerticalAlignment="Center"
+                           Margin="{TemplateBinding Margin}">
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="500"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Border CornerRadius="50" Grid.Column="0" Width="70" 
+                                            Height="70" Grid.RowSpan="2"
+                                            Margin="0,0,0,0">
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill" ImageSource="https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg"/>
+                            </Border.Background>
+                        </Border>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ContentControl 
+                                    x:Name="PersonaNameContentControl"
+                                    Grid.Row="0"
+                                    Margin="0,10,0,0"
+                                    Content="{Binding PersonaName,RelativeSource={RelativeSource AncestorType=UserControl}}"                                     
+                                    Foreground="White"
+                                    TextElement.FontFamily="/Fonts/#Poppins"
+                                    TextElement.FontSize="20"
+                                    TextElement.FontWeight="Bold"/>
+                            <ContentControl Grid.Row="1"
+                                    x:Name="PersonaDescriptionContentControl"
+                                    Content="{Binding PersonaDescription,RelativeSource={RelativeSource AncestorType=UserControl}}"       
+                                    Foreground="White"
+                                    TextElement.FontFamily="/Fonts/#Poppins"
+                                    TextElement.FontSize="15"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </ToggleButton.Template>
+    </ToggleButton>
+</UserControl>

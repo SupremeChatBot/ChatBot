@@ -1,4 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using ChatBot.MVVM.ViewModel;
+using ChatBot.Windows;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,10 +18,13 @@ using System.Windows.Shapes;
 namespace ChatBot
 {
     public partial class MainWindow : Window
-    {        
+    {
+
+        private ChoosePersona _choosePersona;
         public MainWindow()
         {
             InitializeComponent();
+            InitializeObjects();
         }
         private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
@@ -34,5 +40,20 @@ namespace ChatBot
         {
             Close();
         }
+        private void OpenChoosePersonaWindow(object sender, RoutedEventArgs e)
+        {
+            _choosePersona.Show();
+        }
+
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        private void InitializeObjects()
+        {
+            _choosePersona = new ChoosePersona();
+        }
+
     }
 }

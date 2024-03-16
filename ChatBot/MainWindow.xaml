@@ -1,6 +1,6 @@
 ﻿<Window x:Class="ChatBot.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"        
@@ -26,7 +26,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="75"></RowDefinition>
                 </Grid.RowDefinitions>
-
+                
                 <Grid Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0">
                     <Thumb 
                         x:Name="headerThumb" 
@@ -58,24 +58,42 @@
 
 
                 <Grid Grid.Row="0" Grid.Column="1" Margin="0,10,10,0">
-                    <Button x:Name="MinimizeButton" Content="-" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,50,0" Width="30" Height="30" Click="MinimizeButton_Click" Foreground="White" 
-                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"/>
-                    <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Width="30" Height="30" Click="CloseButton_Click" Foreground="White" 
-                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"/>
+                    <Button x:Name="MinimizeButton" Content="-" HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" Margin="0,5,50,0" Width="30" Height="30" 
+                            Click="MinimizeButton_Click" Foreground="White" 
+                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"
+                            Style="{StaticResource RoundedButton}"/>
+                    <Button x:Name="CloseButton" Content="X" HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" Margin="0,5,10,0" Width="30" Height="30" 
+                            Click="CloseButton_Click" Foreground="White" 
+                            Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"
+                            Style="{StaticResource RoundedButton}"/>
                 </Grid>
 
 
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding Conversations}" BorderThickness="0" Background="Transparent">
+                <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <ListView
+                            ItemsSource="{Binding Conversations}" 
+                            BorderThickness="0"
+                            SelectionMode="Single"
+                            Background="Transparent" 
+                            SelectionChanged="ListView_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="5,0,0,15"/>
+                                <Setter Property="Padding" Value="0"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <RadioButton Style="{StaticResource ConversationItemTheme}"/>
+                                <ToggleButton Style="{StaticResource ConversationItem}"                                              
+                                              Width="180"
+                                              IsChecked="{Binding IsButtonChecked}"                                                                                            
+                                              CommandParameter="{Binding Content,RelativeSource={RelativeSource Self}}"/>
+
+
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -88,14 +106,27 @@
                 </ContentControl>
 
 
-
-                <Button Content="New Chat"   
+                <Grid Grid.Column="0" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Content="New Chat"                               
+                        Background="#000034"
+                        TextBlock.Foreground="White"                                                      
+                        Grid.Column="0" 
+                        Margin="10,15,10,10"
+                            Style="{StaticResource RoundedButton}"/>
+                    <Button Content="Persona"                               
                             Background="#000034"
-                            TextBlock.Foreground="White"                            
-                            Grid.Row="2"                             
-                            Grid.Column="0" 
+                            TextBlock.Foreground="White"                                                      
+                            Grid.Column="1" 
                             Margin="10,15,10,10"
-                                Style="{StaticResource RoundedButton}"/>
+                            Click="OpenChoosePersonaWindow"
+                            Style="{StaticResource RoundedButton}"/>
+                </Grid>
+                    
 
 
                 <Grid Grid.Column="1" Grid.Row="2">
@@ -112,15 +143,15 @@
                          VerticalContentAlignment="Center"
                         VerticalAlignment="Bottom"
                          HorizontalAlignment="Left"
-                        Margin="0,0,0,8" 
+                        Margin="0,0,0,8"                         
                         Grid.Column="0"
                          Grid.Row="2"
                          Style="{StaticResource ModernTextbox}">
                     </TextBox>
-                    <Border CornerRadius="10" Grid.Column="1    ">
-
+                    <Border CornerRadius="10" Grid.Column="1">
                         <Button 
-                             Background="#000034"                            
+                            BorderThickness="0" 
+                            Background="#000034"                            
                              TextBlock.Foreground="White"                            
                              Grid.Row="2"                             
                              Grid.Column="0" 
@@ -130,9 +161,9 @@
                                 <Image Source="/Images/send-message.png" Width="40" Height="40"/>
                             </StackPanel>
                         </Button>
-                        
+
                     </Border>
-                    
+
                 </Grid>
             </Grid>
         </Border>

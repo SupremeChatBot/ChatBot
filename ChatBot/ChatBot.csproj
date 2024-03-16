@@ -24,8 +24,4 @@
     <Resource Include="Images\send-message.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MVVM\Model\" />
-  </ItemGroup>
-
 </Project>
