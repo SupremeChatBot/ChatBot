@@ -13,7 +13,7 @@
             <Rectangle StrokeThickness="1"/>
             <TextBox 
                 x:Name="messageTextbox"
-                    Margin="1"                 
+                  Margin="1"                 
                  BorderThickness="0"
                  Background="Transparent"
                  VerticalContentAlignment="Center"
@@ -21,7 +21,7 @@
                  FontSize="16"
                  Foreground="#000034"
                  KeyDown="HandleKeyDown"
-                Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding Request, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock
                 x:Name="PlaceholderTextblock"
                 IsHitTestVisible="False"

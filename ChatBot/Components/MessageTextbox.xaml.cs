@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace ChatBot.Components
 {
     public partial class MessageTextbox : UserControl
-    {
+    {      
         public MessageTextbox()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace ChatBot.Components
             if (e.Key == Key.Enter)
             {
                 var mainViewModel = DataContext as MainViewModel;                
-                mainViewModel.SendMessage();
+                mainViewModel!.SendMessage();
                 messageTextbox.Text = "";
             }
         }

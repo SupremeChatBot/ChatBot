@@ -22,7 +22,7 @@
     <Compile Update="Components\PersonaItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\ChoosePersona.xaml.cs">
+    <Compile Update="Windows\ChoosePersonaWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -39,7 +39,7 @@
     <Page Update="Components\PersonaItem.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\ChoosePersona.xaml">
+    <Page Update="Windows\ChoosePersonaWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

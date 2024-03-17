@@ -11,9 +11,7 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="true">
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
+   
     <Grid>
         <Border Background="#000034"
                 CornerRadius="20">
@@ -73,7 +71,9 @@
 
 
 
-                <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Hidden"
+                              Height="450">
                     <ListView
                             ItemsSource="{Binding Conversations}" 
                             BorderThickness="0"
@@ -113,7 +113,7 @@
                                     </Grid.RowDefinitions>
                                     <components:MessageItem Sender="{Binding Sender}"
                                                             Grid.Row="0"
-                                                        Content="{Binding Content}"/>
+                                                            Content="{Binding Content}"/>
                                     <DockPanel Height="20" Grid.Row="1">
                                         <Separator/>
                                     </DockPanel>
@@ -136,13 +136,13 @@
                     <Button Content="New Chat"                               
                         Background="#000034"
                         TextBlock.Foreground="White"                                                      
-                        Grid.Column="0" 
+                        Grid.Column="1" 
                         Margin="10,15,10,10"
                             Style="{StaticResource RoundedButton}"/>
                     <Button Content="Persona"                               
                             Background="#000034"
                             TextBlock.Foreground="White"                                                      
-                            Grid.Column="1" 
+                            Grid.Column="0" 
                             Margin="10,15,10,10"
                             Click="OpenChoosePersonaWindow"
                             Style="{StaticResource RoundedButton}"/>
@@ -156,7 +156,7 @@
                         <ColumnDefinition Width="80"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <components:MessageTextbox 
-                        Width="620" Height="45" Grid.Column="0"                        />
+                        Width="620" Height="45" Grid.Column="0"/>
                     <Border CornerRadius="10" Grid.Column="1">
                         <Button 
                             BorderThickness="0" 

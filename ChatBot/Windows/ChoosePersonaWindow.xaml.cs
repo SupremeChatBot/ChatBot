@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 
 namespace ChatBot.Windows
 {   
-    public partial class ChoosePersona : Window
+    public partial class ChoosePersonaWindow : Window
     {
-        public ChoosePersona()
+        public ChoosePersonaWindow()
         {
             InitializeComponent();
         }

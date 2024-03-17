@@ -1,6 +1,7 @@
 ﻿using ChatBot.MVVM.Model;
 using ChatBot.MVVM.ViewModel;
 using ChatBot.Windows;
+using ChatBot_Repo.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -21,9 +22,11 @@ namespace ChatBot
 {
     public partial class MainWindow : Window
     {        
-        private ChoosePersona _choosePersona;
-        public MainWindow()
+        private ChoosePersonaWindow _choosePersonaWindow;        
+        private IGoogleGeminiService _googleGeminiService;  
+        public MainWindow(IGoogleGeminiService googleGeminiService)
         {
+            _googleGeminiService = googleGeminiService;
             InitializeComponent();
             InitializeObjects();            
         }
@@ -43,17 +46,14 @@ namespace ChatBot
         }
         private void OpenChoosePersonaWindow(object sender, RoutedEventArgs e)
         {
-            _choosePersona.Show();
+            _choosePersonaWindow.Show();
         }
 
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+       
         private void InitializeObjects()
         {
-            _choosePersona = new ChoosePersona();
+            _choosePersonaWindow = new ChoosePersonaWindow();
+            DataContext = new MainViewModel(_googleGeminiService);
         }
        
         private void input_KeyDown(object sender, KeyEventArgs e)

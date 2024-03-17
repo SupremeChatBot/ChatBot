@@ -3,6 +3,7 @@ using ChatBot_Repo.Services;
 using ChatBot_Repo.Services.Implementation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -15,23 +16,30 @@ namespace ChatBot
     /// </summary>
     public partial class App : Application
     {
+        public static IHost AppHost {  get; private set; }  
         public IConfiguration Configuration { get; private set; }
-        private void ConfigureServices(IServiceCollection services)
+        public App()
         {
-            services.AddSingleton<IGoogleGeminiService, GoogleGeminiService>();
-        }
-        protected override void OnStartup(StartupEventArgs e)
+            AppHost = Host.CreateDefaultBuilder()
+                .ConfigureServices((hostContext,services) =>
+                {
+                    services.AddSingleton<MainWindow>();
+                    services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
+                }).Build();
+        }       
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            await AppHost.StartAsync();
+            var startupForm = AppHost.Services.GetRequiredService<MainWindow>();            
+            startupForm.Show(); 
             // Create a service collection and configure services
-            var builder = new ConfigurationBuilder()
-                   .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("appsettings.json");
-            Configuration = builder.Build();
-            
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
+            //var builder = new ConfigurationBuilder()
+            //       .SetBasePath(Directory.GetCurrentDirectory())
+            //       .AddJsonFile("appsettings.json");
+            //Configuration = builder.Build();
+
+            var serviceCollection = new ServiceCollection();            
 
             // Build the service provider
             //var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -43,7 +51,11 @@ namespace ChatBot
             //// Show the main window
             //mainWindow.Show();
         }
-
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await AppHost.StopAsync();
+            base.OnExit(e);
+        }
     }
 
 

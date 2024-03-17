@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChatBot.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="700">
+             d:DesignWidth="700" d:DesignHeight="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -28,14 +28,21 @@
                Margin="10,0,0,0"
                FontWeight="Bold"
                Foreground="White"/>
-        <TextBlock Text="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"
-               VerticalAlignment="Center"
-                FontSize="18"
-               Grid.Column="1"
-               Grid.Row="1"
-               Margin="10,0,0,0"
-               Foreground="White"/>
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Hidden"
+                      Grid.Column="1" Grid.Row="1"
+                       MaxWidth="600"
+                      MaxHeight="300">
+            <TextBlock Text="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   VerticalAlignment="Center"                                
+                    FontSize="18"
+                    MaxWidth="600"
+                    MaxHeight="300"
+                    TextWrapping="Wrap"
+                   Margin="10,10,0,0"
+                   Foreground="White"
+                   />
+        </ScrollViewer>
     </Grid>
 
 </UserControl>

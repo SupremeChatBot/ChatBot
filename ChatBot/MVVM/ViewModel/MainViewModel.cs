@@ -17,11 +17,13 @@ using System.Diagnostics;
 using ChatBot.MVVM.Model;
 using ChatBot.Components;
 using GenerativeAI.Types;
+using ChatBot_Repo.Services;
+using ChatBot_Repo.Services.Implementation;
+using ChatBot_Repo.Entities;
 namespace ChatBot.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
-    {        
-        public ConversationViewModel ConversationVM { get; set; }
+    {
         public ObservableCollection<ToggleButton> Conversations { get; set; }
         public ObservableCollection<MessageItemModel> MessageItems { get; set; }
         public bool IsButtonChecked
@@ -35,82 +37,86 @@ namespace ChatBot.MVVM.ViewModel
                 }
             }
         }
-        private string _message;
-        public string Message
+        private string _request;
+        public string Request
         {
-            get { return _message; }
+            get { return _request; }
             set
             {
-                _message = value;
+                _request = value;
                 OnPropertyChanged();
             }
         }
-       
-
-        public object CurrentView
+        private string _response;
+        private IGoogleGeminiService _googleGeminiService;
+        public MainViewModel(IGoogleGeminiService googleGeminiService)
         {
-            get { return _currentView; }
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged();
-            }
-        }
-        private object _currentView;
-
-        public MainViewModel()
-        {
+            _googleGeminiService = googleGeminiService;
             InitializeObjects();
             LoadConversations();
-            SeedMessageItems();
         }
-        public void SendMessage()
+        public async void SendMessage()
         {
-            MessageItems.Add(new ()
-            {                
-                Content = Message,
-                ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
-                Sender = "User"
-            });
+            _request = await AddRequestToMessagePanel();
+            //_response = await _googleGeminiService.Chat(_request);
+            //await AddResponseToMessagePanel(_response);
         }
-        private void SeedMessageItems()
+        private async Task<string> AddRequestToMessagePanel()
         {
-            List<string> contents = new()
+
+            var request = await GetRequestAsync();
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                "I love music too!", "Something is right"
-            };
-            int id = 0;
-            foreach (var content in contents)
-            {
-                MessageItemModel msgItemModel = new MessageItemModel()
+                MessageItems.Add(new MessageItemModel()
                 {
-                    Id = id,
-                    Content = content,
+                    Content = request,
                     ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
                     Sender = "User"
+                });
+            });
+            return request;
 
-                };
-                MessageItems.Add(msgItemModel);
-            }
+        }
+        private Task<string> GetRequestAsync()
+        {
+            return Task.Run(() =>
+            {
+                while (Request.Length == 0)
+                {
+                    Task.Delay(100);
+                }
+                return Request;
+            });
+        }
+        private Task AddResponseToMessagePanel(string message)
+        {
+            return Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                MessageItems.Add(new MessageItemModel()
+                {
+                    Content = message,
+                    ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
+                    Sender = "Gemini"
+                });
+            }).Task;
         }
         private void ResetRemainingConversationItemsColor()
         {
             var bc = new BrushConverter();
             string conversationName = "";
-            foreach (ToggleButton conversation in Conversations) {
+            foreach (ToggleButton conversation in Conversations)
+            {
                 if (conversation.Name != conversationName.ToString())
                 {
                     conversation.Foreground = (Brush)bc.ConvertFrom("#FFFFFF");
-                    conversation.Background= (Brush)bc.ConvertFrom("#7289da");
+                    conversation.Background = (Brush)bc.ConvertFrom("#7289da");
                 }
             }
         }
         private void InitializeObjects()
         {
             Conversations = new ObservableCollection<ToggleButton>();
-            ConversationVM = new ConversationViewModel();
             MessageItems = new ObservableCollection<MessageItemModel>();
-            CurrentView = ConversationVM;
         }
         private void LoadConversations()
         {
@@ -120,16 +126,16 @@ namespace ChatBot.MVVM.ViewModel
                 "Healthcare","Politics","Education","Science", "This is a super fucking long text"
             };
             int count = 1;
-            foreach(string content in contents)
-            {                
+            foreach (string content in contents)
+            {
                 Conversations.Add(new ToggleButton()
                 {
                     Name = $"ConversationItem{count}",
-                    Content = content,                                                          
-                    BorderThickness = new Thickness(0),                                                            
-                }) ;
-            }            
-        }    
-        
+                    Content = content,
+                    BorderThickness = new Thickness(0),
+                });
+            }
+        }
+
     }
 }
