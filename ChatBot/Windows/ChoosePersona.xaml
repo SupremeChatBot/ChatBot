@@ -2,9 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ChatBot.Windows"
-        xmlns:themes="clr-namespace:ChatBot.Theme"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:components="clr-namespace:ChatBot.Components"
         xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"        
         mc:Ignorable="d"
         Title="ChoosePersona" Height="400" Width="600"        
@@ -97,7 +96,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <themes:PersonaItem ItemWidth="540" ItemHeight="100" 
+                                <components:PersonaItem ItemWidth="540" ItemHeight="100" 
                                                     BorderThickness="2"
                                                     PersonaName="{Binding Name}"
                                                     PersonaDescription="{Binding Description}"

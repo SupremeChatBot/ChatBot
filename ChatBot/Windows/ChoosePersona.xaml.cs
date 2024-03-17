@@ -1,5 +1,4 @@
 ﻿using ChatBot.MVVM.ViewModel;
-using ChatBot.Theme;
 using System;
 using System.Collections.Generic;
 using System.Linq;

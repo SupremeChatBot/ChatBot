@@ -7,10 +7,19 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\ConversationItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\MessageItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\MessageTextbox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="MVVM\View\ConversationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Theme\PersonaItem.xaml.cs">
+    <Compile Update="Components\PersonaItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\ChoosePersona.xaml.cs">
@@ -18,10 +27,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Theme\ListViewSpacing.xaml">
+    <Page Update="Components\ConversationItem.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\PersonaItem.xaml">
+    <Page Update="Components\MessageItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\MessageTextbox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\PersonaItem.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\ChoosePersona.xaml">
@@ -33,13 +48,7 @@
     <Page Update="MVVM\View\ConversationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\ConversationItem.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Theme\RoundedButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Theme\ModernTextbox.xaml">
+    <Page Update="Components\RoundedButton.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

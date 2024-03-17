@@ -1,5 +1,7 @@
-﻿using ChatBot.MVVM.ViewModel;
+﻿using ChatBot.MVVM.Model;
+using ChatBot.MVVM.ViewModel;
 using ChatBot.Windows;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -18,13 +20,12 @@ using System.Windows.Shapes;
 namespace ChatBot
 {
     public partial class MainWindow : Window
-    {
-
+    {        
         private ChoosePersona _choosePersona;
         public MainWindow()
         {
             InitializeComponent();
-            InitializeObjects();
+            InitializeObjects();            
         }
         private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
@@ -54,6 +55,14 @@ namespace ChatBot
         {
             _choosePersona = new ChoosePersona();
         }
-
+       
+        private void input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter)
+            {
+                TextBox textBox = sender as TextBox;
+                textBox.Clear();
+            }
+        }
     }
 }

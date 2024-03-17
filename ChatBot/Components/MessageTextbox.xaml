@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ChatBot.Components.MessageTextbox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             mc:Ignorable="d" 
+             d:DesignHeight="{Binding Height}" d:DesignWidth="{Binding Width}">
+
+    <Border x:Name="border"
+        CornerRadius="10"
+        Background="white">
+        <Grid>
+            <Rectangle StrokeThickness="1"/>
+            <TextBox 
+                x:Name="messageTextbox"
+                    Margin="1"                 
+                 BorderThickness="0"
+                 Background="Transparent"
+                 VerticalContentAlignment="Center"
+                 Padding="5"
+                 FontSize="16"
+                 Foreground="#000034"
+                 KeyDown="HandleKeyDown"
+                Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock
+                x:Name="PlaceholderTextblock"
+                IsHitTestVisible="False"
+                Text="Enter your questions here..."
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="10,0,0,0"
+                FontSize="11"
+                Foreground="DarkGray"
+                Visibility="Hidden"
+                Grid.Column="1"
+                >
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+        </Grid>
+    </Border>
+</UserControl>

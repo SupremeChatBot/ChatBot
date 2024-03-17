@@ -1,6 +1,7 @@
 /ChatBot/bin/
 /ChatBot/obj/
 /ChatBot/.vs/
+/ChatBot/appsettings.json
 
 /ChatBot_Repo/bin/
 /ChatBot_Repo/obj/

@@ -8,11 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme/ConversationItem.xaml"/>
-                <ResourceDictionary Source="Theme/ModernTextbox.xaml"/>
-                <ResourceDictionary Source="Theme/RoundedButton.xaml"/>
+                <ResourceDictionary Source="Components/RoundedButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
             <DataTemplate DataType="{x:Type viewModel:ConversationViewModel}">
                 <view:ConversationView/>
             </DataTemplate>

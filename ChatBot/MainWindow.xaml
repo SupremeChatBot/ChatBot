@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+        xmlns:components="clr-namespace:ChatBot.Components"
         xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"        
         mc:Ignorable="d"
         Height="600" Width="920"
@@ -77,8 +78,7 @@
                             ItemsSource="{Binding Conversations}" 
                             BorderThickness="0"
                             SelectionMode="Single"
-                            Background="Transparent" 
-                            SelectionChanged="ListView_SelectionChanged">
+                            Background="Transparent">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -88,22 +88,43 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ToggleButton Style="{StaticResource ConversationItem}"                                              
-                                              Width="180"
-                                              IsChecked="{Binding IsButtonChecked}"                                                                                            
-                                              CommandParameter="{Binding Content,RelativeSource={RelativeSource Self}}"/>
-
-
+                                <components:ConversationItem 
+                                    ItemWidth="180" ItemHeight="50"
+                                    ItemContent="Lorem ipsum dolot sit amet, I dunno what to do this weekend"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
 
-                <ContentControl Grid.Row="1" Grid.Column="1"
-                                Margin="10"
-                                Content="{Binding CurrentView}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1"
+                              HorizontalScrollBarVisibility="Hidden" Margin="0,0,10,0">
+                    <ItemsControl ItemsSource="{Binding MessageItems}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <components:MessageItem Sender="{Binding Sender}"
+                                                            Grid.Row="0"
+                                                        Content="{Binding Content}"/>
+                                    <DockPanel Height="20" Grid.Row="1">
+                                        <Separator/>
+                                    </DockPanel>
 
-                </ContentControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                                                                   
+                    </ItemsControl>
+                </ScrollViewer>
+                
 
 
                 <Grid Grid.Column="0" Grid.Row="2">
@@ -134,20 +155,8 @@
                         <ColumnDefinition Width="630"></ColumnDefinition>
                         <ColumnDefinition Width="80"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox                        
-                        Width="630"
-                         Height="52"
-                         FontSize="20"
-                         Foreground="White"
-                         Background="#121212"
-                         VerticalContentAlignment="Center"
-                        VerticalAlignment="Bottom"
-                         HorizontalAlignment="Left"
-                        Margin="0,0,0,8"                         
-                        Grid.Column="0"
-                         Grid.Row="2"
-                         Style="{StaticResource ModernTextbox}">
-                    </TextBox>
+                    <components:MessageTextbox 
+                        Width="620" Height="45" Grid.Column="0"                        />
                     <Border CornerRadius="10" Grid.Column="1">
                         <Button 
                             BorderThickness="0" 
