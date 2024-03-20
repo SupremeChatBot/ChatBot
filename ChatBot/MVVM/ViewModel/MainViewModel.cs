@@ -58,8 +58,8 @@ namespace ChatBot.MVVM.ViewModel
         public async void SendMessage()
         {
             _request = await AddRequestToMessagePanel();
-            //_response = await _googleGeminiService.Chat(_request);
-            //await AddResponseToMessagePanel(_response);
+            _response = await _googleGeminiService.Chat(_request);
+            await AddResponseToMessagePanel(_response);
         }
         private async Task<string> AddRequestToMessagePanel()
         {
