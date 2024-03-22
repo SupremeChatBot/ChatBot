@@ -73,12 +73,16 @@
 
                 <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Hidden"
-                              Height="450">
+                              Height="450"
+                              Width="195"
+                              Style="{StaticResource ModernScrollViewStyle}">
                     <ListView
+                        x:Name="ConversationListView"
                             ItemsSource="{Binding Conversations}" 
                             BorderThickness="0"
                             SelectionMode="Single"
-                            Background="Transparent">
+                            Background="Transparent"
+                        SelectionChanged="ConversationListView_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -90,13 +94,13 @@
                             <DataTemplate>
                                 <components:ConversationItem 
                                     ItemWidth="180" ItemHeight="50"
-                                    ItemContent="Lorem ipsum dolot sit amet, I dunno what to do this weekend"/>
+                                    ItemContent="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1"
+                <ScrollViewer x:Name="MessageScrollViewer" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1"
                               HorizontalScrollBarVisibility="Hidden" Margin="0,0,10,0">
                     <ItemsControl ItemsSource="{Binding MessageItems}">
                         <ItemsControl.ItemsPanel>
@@ -114,7 +118,7 @@
                                     <components:MessageItem Sender="{Binding Sender}"
                                                             Grid.Row="0"
                                                             Content="{Binding Content}"/>
-                                    <DockPanel Height="20" Grid.Row="1">
+                                    <DockPanel Height="Auto" Grid.Row="1" Margin="10">
                                         <Separator/>
                                     </DockPanel>
 
@@ -155,7 +159,7 @@
                         <ColumnDefinition Width="630"></ColumnDefinition>
                         <ColumnDefinition Width="80"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <components:MessageTextbox 
+                    <components:MessageTextbox x:Name="msgTextbox"
                         Width="620" Height="45" Grid.Column="0"/>
                     <Border CornerRadius="10" Grid.Column="1">
                         <Button 
@@ -165,6 +169,7 @@
                              Grid.Row="2"                             
                              Grid.Column="0" 
                              Margin="10,15,10,10"
+                            Click="SendButton_Click"
                             Style="{StaticResource RoundedButton}">
                             <StackPanel>
                                 <Image Source="/Images/send-message.png" Width="40" Height="40"/>

@@ -17,7 +17,8 @@ using System.Windows.Shapes;
 namespace ChatBot.Components
 {
     public partial class MessageTextbox : UserControl
-    {      
+    {
+        public event EventHandler<KeyEventArgs> TextBoxKeyDown;
         public MessageTextbox()
         {
             InitializeComponent();
@@ -25,9 +26,9 @@ namespace ChatBot.Components
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-            {
-                var mainViewModel = DataContext as MainViewModel;                
-                mainViewModel!.SendMessage();
+            {                
+                var mainViewModel = DataContext as MainViewModel;
+                TextBoxKeyDown.Invoke(this, e);
                 messageTextbox.Text = "";
             }
         }

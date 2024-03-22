@@ -7,7 +7,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Components/RoundedButton.xaml"/>
+                <ResourceDictionary Source="Components/RoundedButtonStyle.xaml"/>
+                <ResourceDictionary Source="Components/ModernScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="Components/ModernScrollViewStyle.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:ConversationViewModel}">
                 <view:ConversationView/>

@@ -36,7 +36,13 @@
     <Page Update="Components\MessageTextbox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Components\ModernScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\PersonaItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\ModernScrollViewStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\ChoosePersonaWindow.xaml">
@@ -48,7 +54,7 @@
     <Page Update="MVVM\View\ConversationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Components\RoundedButton.xaml">
+    <Page Update="Components\RoundedButtonStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

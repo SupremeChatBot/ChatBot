@@ -16,40 +16,25 @@ namespace ChatBot
     /// </summary>
     public partial class App : Application
     {
-        public static IHost AppHost {  get; private set; }  
+        public static IHost AppHost { get; private set; }
         public IConfiguration Configuration { get; private set; }
         public App()
         {
             AppHost = Host.CreateDefaultBuilder()
-                .ConfigureServices((hostContext,services) =>
+                .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton<MainWindow>();
                     services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
                 }).Build();
-        }       
+        }
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             await AppHost.StartAsync();
-            var startupForm = AppHost.Services.GetRequiredService<MainWindow>();            
-            startupForm.Show(); 
-            // Create a service collection and configure services
-            //var builder = new ConfigurationBuilder()
-            //       .SetBasePath(Directory.GetCurrentDirectory())
-            //       .AddJsonFile("appsettings.json");
-            //Configuration = builder.Build();
+            var startupForm = AppHost.Services.GetRequiredService<MainWindow>();
+            startupForm.Show();
 
-            var serviceCollection = new ServiceCollection();            
 
-            // Build the service provider
-            //var serviceProvider = serviceCollection.BuildServiceProvider();
-
-            //// Create the main window and set its data context to the view model
-            //var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-            //mainWindow.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
-
-            //// Show the main window
-            //mainWindow.Show();
         }
         protected override async void OnExit(ExitEventArgs e)
         {

@@ -24,7 +24,7 @@ namespace ChatBot.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        public ObservableCollection<ToggleButton> Conversations { get; set; }
+        public ObservableCollection<ConversationItemModel> Conversations { get; set; }
         public ObservableCollection<MessageItemModel> MessageItems { get; set; }
         public bool IsButtonChecked
         {
@@ -33,7 +33,7 @@ namespace ChatBot.MVVM.ViewModel
             {
                 if (true)
                 {
-                    this.ResetRemainingConversationItemsColor();
+                    //this.ResetRemainingConversationItemsColor();
                 }
             }
         }
@@ -57,9 +57,15 @@ namespace ChatBot.MVVM.ViewModel
         }
         public async void SendMessage()
         {
+            if (_request == null) return;
             _request = await AddRequestToMessagePanel();
             _response = await _googleGeminiService.Chat(_request);
-            await AddResponseToMessagePanel(_response);
+            await AddResponseToMessageItems(_response);
+        }
+        public void ShowSelectedConversation(int index )
+        {
+            ConversationItemModel item = Conversations[index];  
+            MessageBox.Show("Currently selected model: " + item.Name);
         }
         private async Task<string> AddRequestToMessagePanel()
         {
@@ -88,7 +94,7 @@ namespace ChatBot.MVVM.ViewModel
                 return Request;
             });
         }
-        private Task AddResponseToMessagePanel(string message)
+        private Task AddResponseToMessageItems(string message)
         {
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
@@ -100,39 +106,39 @@ namespace ChatBot.MVVM.ViewModel
                 });
             }).Task;
         }
-        private void ResetRemainingConversationItemsColor()
-        {
-            var bc = new BrushConverter();
-            string conversationName = "";
-            foreach (ToggleButton conversation in Conversations)
-            {
-                if (conversation.Name != conversationName.ToString())
-                {
-                    conversation.Foreground = (Brush)bc.ConvertFrom("#FFFFFF");
-                    conversation.Background = (Brush)bc.ConvertFrom("#7289da");
-                }
-            }
-        }
+        
+        //private void ResetRemainingConversationItemsColor()
+        //{
+        //    var bc = new BrushConverter();
+        //    string conversationName = "";
+        //    foreach (ToggleButton conversation in Conversations)
+        //    {
+        //        if (conversation.Name != conversationName.ToString())
+        //        {
+        //            conversation.Foreground = (Brush)bc.ConvertFrom("#FFFFFF");
+        //            conversation.Background = (Brush)bc.ConvertFrom("#7289da");
+        //        }
+        //    }
+        //}
         private void InitializeObjects()
         {
-            Conversations = new ObservableCollection<ToggleButton>();
+            Conversations = new ObservableCollection<ConversationItemModel>();
             MessageItems = new ObservableCollection<MessageItemModel>();
         }
         private void LoadConversations()
         {
-            List<string> contents = new List<string>()
+            List<string> conversationNames = new List<string>()
             {
                 "Healthcare","Politics","Education","Science", "This is a super fucking long text",
                 "Healthcare","Politics","Education","Science", "This is a super fucking long text"
             };
             int count = 1;
-            foreach (string content in contents)
+            foreach (string conversationName in conversationNames)
             {
-                Conversations.Add(new ToggleButton()
+                Conversations.Add(new ConversationItemModel()
                 {
-                    Name = $"ConversationItem{count}",
-                    Content = content,
-                    BorderThickness = new Thickness(0),
+                    Name = conversationName,
+                    
                 });
             }
         }

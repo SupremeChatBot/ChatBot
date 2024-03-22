@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChatBot.Components"
              mc:Ignorable="d" 
-             d:DesignWidth="700" d:DesignHeight="300">
+             d:DesignWidth="700" d:DesignHeight="200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Border CornerRadius="50" Grid.RowSpan="2" Width="70" Height="70">
             <Border.Background>
@@ -25,22 +25,27 @@
                 FontSize="16"
                 FontFamily="/Fonts/#Poppins"
                Grid.Row="0"
-               Margin="10,0,0,0"
+               Margin="0,0,0,0"
                FontWeight="Bold"
+                   Height="20"
                Foreground="White"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Hidden"
                       Grid.Column="1" Grid.Row="1"
                        MaxWidth="600"
                       MaxHeight="300">
-            <TextBlock Text="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                   VerticalAlignment="Center"                                
-                    FontSize="18"
-                    MaxWidth="600"
-                    MaxHeight="300"
-                    TextWrapping="Wrap"
-                   Margin="10,10,0,0"
-                   Foreground="White"
+            <TextBox
+                   Text="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   Background="#000034"
+                BorderThickness="0"
+                    VerticalAlignment="Center"                                
+                   FontSize="18"
+                   Width="Auto"
+                   MaxWidth="600"
+                   MaxHeight="600"
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,0"
+                   Foreground="White"                
                    />
         </ScrollViewer>
     </Grid>

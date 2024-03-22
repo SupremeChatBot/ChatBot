@@ -1,4 +1,5 @@
-﻿using ChatBot.MVVM.Model;
+﻿using ChatBot.Components;
+using ChatBot.MVVM.Model;
 using ChatBot.MVVM.ViewModel;
 using ChatBot.Windows;
 using ChatBot_Repo.Services;
@@ -27,8 +28,10 @@ namespace ChatBot
         public MainWindow(IGoogleGeminiService googleGeminiService)
         {
             _googleGeminiService = googleGeminiService;
+            
             InitializeComponent();
-            InitializeObjects();            
+            InitializeObjects();
+            BindMsgTextBoxToScrollBottomEvent();
         }
         private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
@@ -55,14 +58,41 @@ namespace ChatBot
             _choosePersonaWindow = new ChoosePersonaWindow();
             DataContext = new MainViewModel(_googleGeminiService);
         }
-       
-        private void input_KeyDown(object sender, KeyEventArgs e)
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Key==Key.Enter)
+            try
             {
-                TextBox textBox = sender as TextBox;
-                textBox.Clear();
+                SendMessage();
             }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, error.StackTrace);
+            }
+        }
+        private void MsgTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            SendMessage();
+        }
+        private void BindMsgTextBoxToScrollBottomEvent()
+        {
+            msgTextbox.TextBoxKeyDown += MsgTextBox_KeyDown;
+        }
+        private void SendMessage()
+        {
+            
+
+                MessageScrollViewer.ScrollToBottom();
+                var mainViewModel = DataContext as MainViewModel;
+                mainViewModel!.SendMessage();
+            
+        }
+
+        private void ConversationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mainViewModel = DataContext as MainViewModel;
+            int selectedIndex = ConversationListView.SelectedIndex;
+            mainViewModel!.ShowSelectedConversation(selectedIndex);
         }
     }
 }

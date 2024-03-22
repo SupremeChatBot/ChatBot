@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="ModernScrollBarStyle"  TargetType="ScrollBar">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Width" Value="10"/>
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid Name="Bg" Width="30" Margin="-3,0,0,0"
+              Background="{TemplateBinding Background}"
+              SnapsToDevicePixels="true">
+                        <Grid.RowDefinitions>
+                            <RowDefinition MaxHeight="{DynamicResource 
+                                    {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}"/>
+                            <RowDefinition Height="0.00001*"/>
+                            <RowDefinition MaxHeight="{DynamicResource 
+                                {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}"/>
+                        </Grid.RowDefinitions>
+                        <!-- Set the ViewporSize to NaN to disable autosizing of the Thumb. -->
+                        <Track Name="PART_Track"                               
+                                     ViewportSize="NaN"
+                                     IsDirectionReversed="true"
+                                     Grid.Row="1"
+                                    Width="20"
+                                     Grid.ZIndex="-1">                                                             
+                            <Track.Thumb>
+                                <!-- Set the height of the Thumb.-->
+                                <Thumb Height="100" BorderThickness="1" />
+                            </Track.Thumb>
+                        </Track>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

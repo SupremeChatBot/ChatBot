@@ -35,25 +35,7 @@ namespace ChatBot.Components
         public MessageItem()
         {
             InitializeComponent();
-        }
-        private double _lastSize;
-
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            var textBlock = sender as TextBlock;
-            if (textBlock == null)
-            {
-                return;
-            }
-
-            if (e.WidthChanged)
-            {
-                if (textBlock.Width < _lastSize)
-                {
-                    textBlock.Width = _lastSize;
-                }
-                _lastSize = textBlock.Width;
-            }
-        }
+        }        
+     
     }
 }

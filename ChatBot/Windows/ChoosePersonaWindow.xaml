@@ -79,8 +79,10 @@
                 <!--Persona List-->
                 <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2"
                               Height="300"
+                              Width="600"
                               HorizontalScrollBarVisibility="Hidden"
-                              VerticalScrollBarVisibility="Auto">
+                              VerticalScrollBarVisibility="Auto"
+                              Style="{StaticResource ModernScrollViewStyle}">
                     <ListView ItemsSource="{Binding Personas}"
                                 BorderThickness="0"
                                 SelectionMode="Single"
