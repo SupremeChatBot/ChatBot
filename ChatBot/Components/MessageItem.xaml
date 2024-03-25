@@ -15,7 +15,7 @@
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border CornerRadius="50" Grid.RowSpan="2" Width="70" Height="70">
+        <Border CornerRadius="50" Grid.RowSpan="2" Width="70" Height="70" Margin="0,0,20,0">
             <Border.Background>
                 <ImageBrush Stretch="Fill" ImageSource="https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg"/>
             </Border.Background>
@@ -33,7 +33,8 @@
                       HorizontalScrollBarVisibility="Hidden"
                       Grid.Column="1" Grid.Row="1"
                        MaxWidth="600"
-                      MaxHeight="300">
+                      MaxHeight="300"
+                      Style="{StaticResource ModernScrollViewStyle}">
             <TextBox
                    Text="{Binding Content,RelativeSource={RelativeSource AncestorType=UserControl}}"
                    Background="#000034"
@@ -41,7 +42,7 @@
                     VerticalAlignment="Center"                                
                    FontSize="18"
                    Width="Auto"
-                   MaxWidth="600"
+                   MaxWidth="580"
                    MaxHeight="600"
                    TextWrapping="Wrap"
                    Margin="0,0,0,0"

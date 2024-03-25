@@ -9,7 +9,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
-                    <Grid Name="Bg" Width="30" Margin="-3,0,0,0"
+                    <Grid Name="Bg" Width="10" Margin="-3,0,0,0"
               Background="{TemplateBinding Background}"
               SnapsToDevicePixels="true">
                         <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
                                      IsDirectionReversed="true"
                                      Grid.Row="1"
                                     Width="20"
-                                     Grid.ZIndex="-1">                                                             
+                                     >
                             <Track.Thumb>
                                 <!-- Set the height of the Thumb.-->
                                 <Thumb Height="100" BorderThickness="1" />

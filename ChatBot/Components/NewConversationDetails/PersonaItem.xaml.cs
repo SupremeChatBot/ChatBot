@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChatBot.Components
+namespace ChatBot.Components.NewConversationDetails
 {
  
     public partial class PersonaItem : UserControl

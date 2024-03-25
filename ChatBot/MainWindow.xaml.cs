@@ -2,6 +2,7 @@
 using ChatBot.MVVM.Model;
 using ChatBot.MVVM.ViewModel;
 using ChatBot.Windows;
+using ChatBot_Repo.EventAggregator;
 using ChatBot_Repo.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -22,13 +23,18 @@ using System.Windows.Shapes;
 namespace ChatBot
 {
     public partial class MainWindow : Window
-    {        
-        private ChoosePersonaWindow _choosePersonaWindow;        
-        private IGoogleGeminiService _googleGeminiService;  
-        public MainWindow(IGoogleGeminiService googleGeminiService)
+    {
+        private NewConversationDetails _choosePersonaWindow;
+        private IGoogleGeminiService _googleGeminiService;
+        private NewConversationDetailsViewModel _newConversationDetailsViewModel; 
+        private IEventAggregator _eventAggregator;
+        public MainWindow(IGoogleGeminiService googleGeminiService,
+            IEventAggregator eventAggregator,
+            NewConversationDetailsViewModel newConversationDetailsViewModel)
         {
-            _googleGeminiService = googleGeminiService;
-            
+            _newConversationDetailsViewModel = newConversationDetailsViewModel;
+            _googleGeminiService = googleGeminiService;            
+            _eventAggregator = eventAggregator; 
             InitializeComponent();
             InitializeObjects();
             BindMsgTextBoxToScrollBottomEvent();
@@ -47,16 +53,11 @@ namespace ChatBot
         {
             Close();
         }
-        private void OpenChoosePersonaWindow(object sender, RoutedEventArgs e)
-        {
-            _choosePersonaWindow.Show();
-        }
-
-       
+    
         private void InitializeObjects()
         {
-            _choosePersonaWindow = new ChoosePersonaWindow();
-            DataContext = new MainViewModel(_googleGeminiService);
+            _choosePersonaWindow = new NewConversationDetails(_newConversationDetailsViewModel);
+            DataContext = new MainViewModel(_googleGeminiService,_eventAggregator);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
@@ -80,12 +81,9 @@ namespace ChatBot
         }
         private void SendMessage()
         {
-            
-
-                MessageScrollViewer.ScrollToBottom();
-                var mainViewModel = DataContext as MainViewModel;
-                mainViewModel!.SendMessage();
-            
+            MessageScrollViewer.ScrollToBottom();
+            var mainViewModel = DataContext as MainViewModel;
+            mainViewModel!.SendMessage();
         }
 
         private void ConversationListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,5 +92,13 @@ namespace ChatBot
             int selectedIndex = ConversationListView.SelectedIndex;
             mainViewModel!.ShowSelectedConversation(selectedIndex);
         }
+
+        private void NewChatButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainViewModel = DataContext as MainViewModel;
+            _choosePersonaWindow.Show();
+            ConversationScrollViewer.ScrollToBottom();
+        }
+       
     }
 }

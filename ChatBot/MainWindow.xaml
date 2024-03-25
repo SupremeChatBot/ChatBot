@@ -71,9 +71,11 @@
 
 
 
-                <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" 
+                <ScrollViewer 
+                                x:Name="ConversationScrollViewer"
+                              Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Hidden"
-                              Height="450"
+                              MaxHeight="450"
                               Width="195"
                               Style="{StaticResource ModernScrollViewStyle}">
                     <ListView
@@ -83,6 +85,12 @@
                             SelectionMode="Single"
                             Background="Transparent"
                         SelectionChanged="ConversationListView_SelectionChanged">
+                        <ListView.Template>
+                            <ControlTemplate>
+                                <!-- Empty template to allow ScrollViewer to capture mouse scroll -->
+                                <ItemsPresenter />
+                            </ControlTemplate>
+                        </ListView.Template>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="BorderThickness" Value="0"/>
@@ -93,15 +101,18 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <components:ConversationItem 
-                                    ItemWidth="180" ItemHeight="50"
+                                    ItemWidth="160" ItemHeight="50"
                                     ItemContent="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
-
-                <ScrollViewer x:Name="MessageScrollViewer" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1"
-                              HorizontalScrollBarVisibility="Hidden" Margin="0,0,10,0">
+                
+                <ScrollViewer x:Name="MessageScrollViewer" VerticalScrollBarVisibility="Auto" 
+                              Width="Auto"
+                              Grid.Column="1" Grid.Row="1"
+                              HorizontalScrollBarVisibility="Hidden" Margin="15,0,10,0"
+                              Style="{StaticResource ModernScrollViewStyle}">
                     <ItemsControl ItemsSource="{Binding MessageItems}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -128,28 +139,24 @@
                                                                    
                     </ItemsControl>
                 </ScrollViewer>
-                
+
 
 
                 <Grid Grid.Column="0" Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Button Content="New Chat"                               
+
+                    <Button                             
                         Background="#000034"
                         TextBlock.Foreground="White"                                                      
-                        Grid.Column="1" 
-                        Margin="10,15,10,10"
-                            Style="{StaticResource RoundedButton}"/>
-                    <Button Content="Persona"                               
-                            Background="#000034"
-                            TextBlock.Foreground="White"                                                      
-                            Grid.Column="0" 
-                            Margin="10,15,10,10"
-                            Click="OpenChoosePersonaWindow"
-                            Style="{StaticResource RoundedButton}"/>
+                        Grid.Column="1"
+                            
+                        Margin="10,15,15,15"
+                        Click="NewChatButton_Click"
+                        Style="{StaticResource RoundedButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Margin="-20,0,0,0" Source="/Images/magic-wand.png"></Image>
+                            <TextBlock Margin="20,10,0,0" FontSize="16">New Chat</TextBlock>
+                        </StackPanel>
+                    </Button>
                 </Grid>
                     
 
