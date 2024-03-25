@@ -5,7 +5,9 @@
              xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"
              xmlns:view ="clr-namespace:ChatBot.MVVM.View">
     <Application.Resources>
+        
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Components/RoundedButtonStyle.xaml"/>
                 <ResourceDictionary Source="Components/ModernScrollBarStyle.xaml"/>

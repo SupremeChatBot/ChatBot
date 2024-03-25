@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\NewConversationDetails\ChoosePersona.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\ConversationItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,17 +19,23 @@
     <Compile Update="Components\MessageTextbox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\NewConversationDetails\ConversationDetails.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="MVVM\View\ConversationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Components\PersonaItem.xaml.cs">
+    <Compile Update="Components\NewConversationDetails\PersonaItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\ChoosePersonaWindow.xaml.cs">
+    <Compile Update="Windows\NewConversationDetails.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\NewConversationDetails\ChoosePersona.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\ConversationItem.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -39,13 +48,16 @@
     <Page Update="Components\ModernScrollBarStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Components\PersonaItem.xaml">
+    <Page Update="Components\NewConversationDetails\ConversationDetails.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\NewConversationDetails\PersonaItem.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\ModernScrollViewStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\ChoosePersonaWindow.xaml">
+    <Page Update="Windows\NewConversationDetails.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

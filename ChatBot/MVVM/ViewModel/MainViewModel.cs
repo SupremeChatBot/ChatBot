@@ -20,6 +20,7 @@ using GenerativeAI.Types;
 using ChatBot_Repo.Services;
 using ChatBot_Repo.Services.Implementation;
 using ChatBot_Repo.Entities;
+using ChatBot_Repo.EventAggregator;
 namespace ChatBot.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
@@ -49,12 +50,17 @@ namespace ChatBot.MVVM.ViewModel
         }
         private string _response;
         private IGoogleGeminiService _googleGeminiService;
-        public MainViewModel(IGoogleGeminiService googleGeminiService)
+        private IEventAggregator _eventAggregator;
+        
+        
+        public MainViewModel(IGoogleGeminiService googleGeminiService,IEventAggregator eventAggregator)
         {
             _googleGeminiService = googleGeminiService;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe<ConversationItemModel>(AddNewConversation);
             InitializeObjects();
-            LoadConversations();
-        }
+            //LoadConversations();
+        }       
         public async void SendMessage()
         {
             if (_request == null) return;
@@ -62,9 +68,9 @@ namespace ChatBot.MVVM.ViewModel
             _response = await _googleGeminiService.Chat(_request);
             await AddResponseToMessageItems(_response);
         }
-        public void ShowSelectedConversation(int index )
+        public void ShowSelectedConversation(int index)
         {
-            ConversationItemModel item = Conversations[index];  
+            ConversationItemModel item = Conversations[index];
             MessageBox.Show("Currently selected model: " + item.Name);
         }
         private async Task<string> AddRequestToMessagePanel()
@@ -107,19 +113,6 @@ namespace ChatBot.MVVM.ViewModel
             }).Task;
         }
         
-        //private void ResetRemainingConversationItemsColor()
-        //{
-        //    var bc = new BrushConverter();
-        //    string conversationName = "";
-        //    foreach (ToggleButton conversation in Conversations)
-        //    {
-        //        if (conversation.Name != conversationName.ToString())
-        //        {
-        //            conversation.Foreground = (Brush)bc.ConvertFrom("#FFFFFF");
-        //            conversation.Background = (Brush)bc.ConvertFrom("#7289da");
-        //        }
-        //    }
-        //}
         private void InitializeObjects()
         {
             Conversations = new ObservableCollection<ConversationItemModel>();
@@ -138,10 +131,14 @@ namespace ChatBot.MVVM.ViewModel
                 Conversations.Add(new ConversationItemModel()
                 {
                     Name = conversationName,
-                    
+
                 });
             }
         }
 
+        private void AddNewConversation(ConversationItemModel conversationItemModel)
+        {
+            Conversations.Add(conversationItemModel);
+        }
     }
 }

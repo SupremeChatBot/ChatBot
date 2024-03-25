@@ -1,4 +1,5 @@
 ﻿using ChatBot.MVVM.ViewModel;
+using ChatBot_Repo.EventAggregator;
 using ChatBot_Repo.Services;
 using ChatBot_Repo.Services.Implementation;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,8 @@ namespace ChatBot
                 {
                     services.AddSingleton<MainWindow>();
                     services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
+                    services.AddSingleton<IEventAggregator, EventAggregator>();
+                    services.AddSingleton<NewConversationDetailsViewModel>();
                 }).Build();
         }
         protected override async void OnStartup(StartupEventArgs e)
@@ -33,7 +36,6 @@ namespace ChatBot
             await AppHost.StartAsync();
             var startupForm = AppHost.Services.GetRequiredService<MainWindow>();
             startupForm.Show();
-
 
         }
         protected override async void OnExit(ExitEventArgs e)
