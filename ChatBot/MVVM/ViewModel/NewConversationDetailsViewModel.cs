@@ -85,7 +85,7 @@ namespace ChatBot.MVVM.ViewModel
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
-                    Image = p.Image
+                    ImageUrl = p.Image
                 });
             }
         }
