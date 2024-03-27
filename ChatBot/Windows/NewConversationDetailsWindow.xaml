@@ -78,7 +78,7 @@
                         Style="{StaticResource RoundedButton}"
                         Click="NextButton_Click"/>
                     <Button 
-                        Content="Save"                               
+                        Content="Create"                               
                         Background="#000034"
                         TextBlock.Foreground="White"                                                      
                         BorderBrush="White"                        

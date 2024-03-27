@@ -24,20 +24,21 @@
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="500"></ColumnDefinition>
+                    <ColumnDefinition Width="420"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <Border CornerRadius="50" Grid.Column="0" Width="70" 
                                             Height="70" Grid.RowSpan="2"
                                             Margin="0,0,0,0">
                     <Border.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg"/>
+                        <ImageBrush Stretch="Fill" 
+                                    ImageSource="{Binding ImageUrl,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                     </Border.Background>
                 </Border>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <ContentControl 
                                     x:Name="PersonaNameContentControl"
@@ -48,9 +49,11 @@
                                     TextElement.FontFamily="/Fonts/#Poppins"
                                     TextElement.FontSize="20"
                                     TextElement.FontWeight="Bold"/>
-                    <ContentControl Grid.Row="1"
+                    <TextBlock Grid.Row="1" 
+                               VerticalAlignment="Top"
                                     x:Name="PersonaDescriptionContentControl"
-                                    Content="{Binding PersonaDescription,RelativeSource={RelativeSource AncestorType=UserControl}}"       
+                                    Text="{Binding PersonaDescription,RelativeSource={RelativeSource AncestorType=UserControl}}"       
+                                    TextWrapping="Wrap"     
                                     Foreground="White"
                                     TextElement.FontFamily="/Fonts/#Poppins"
                                     TextElement.FontSize="15"/>

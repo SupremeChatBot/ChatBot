@@ -71,23 +71,22 @@ namespace ChatBot.MVVM.ViewModel
         {
             var personas = new[]
             {
-            new { Id = 1, Name = "Johnny Depp", Description = "I want you to act as Johnny Depp, expert in acting and character immersion, specializing in eccentric roles and in-depth character study. " },
+            new { Id = 1, Name = "Johnny Depp", Description = "I want you to act as Johnny Depp, expert in acting and character immersion, specializing in eccentric roles and in-depth character study. "},
             new { Id = 2, Name = "Lionel Messi", Description = "I want you to act as Lionel Messi, expert in soccer and athleticism, specializing in dribbling and playmaking." },
             new { Id = 3, Name = "Taylor Swift", Description = "I want you to act as Taylor Swift, expert in music and songwriting, specializing in storytelling and relatable lyrics." },
             new { Id = 4, Name = "Anne Hathaway", Description = "I want you to act as Anne Hathaway, expert in acting and versatility, specializing in diverse roles and captivating performances." },
             new { Id = 5, Name = "Andrew Tate", Description = "I want you to act as Andrew Tate, expert in fitness and self-defense, specializing in kickboxing and weightlifting." }
             };
-            //List<string> names = new List<string>() { "Albert", "Alice", "Hubert", "Lmao", "Programmer" };
-
-            //int id = 0;
+    
             foreach (var p in personas)
             {
                 Personas.Add(new PersonaItemModel()
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Description = p.Description
-                });
+                    Description = p.Description,                    
+
+                }); ;
             }
         }
         private void InitializeObjects()

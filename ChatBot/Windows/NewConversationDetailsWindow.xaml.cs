@@ -58,8 +58,9 @@ namespace ChatBot.Windows
             {
                 // Call the command in the ViewModel
                 viewModel.SaveNewConversationDetailsCommand.Execute(sender);
-            }
-            this.Hide();
+                currentIndex = 0;
+                this.Hide();
+            }            
         }
 
         private void PrevButton_Click(object sender, RoutedEventArgs e)

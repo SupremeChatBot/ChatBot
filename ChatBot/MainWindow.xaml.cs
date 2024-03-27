@@ -94,8 +94,7 @@ namespace ChatBot
         }
 
         private void NewChatButton_Click(object sender, RoutedEventArgs e)
-        {
-            var mainViewModel = DataContext as MainViewModel;
+        {            
             _choosePersonaWindow.Show();
             ConversationScrollViewer.ScrollToBottom();
         }
