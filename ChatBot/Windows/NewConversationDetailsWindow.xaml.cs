@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 namespace ChatBot.Windows
 {   
-    public partial class NewConversationDetails : Window
+    public partial class NewConversationDetailsWindow : Window
     {
         private ChoosePersona choosePersonaControl;
         private ConversationDetails conversationDetailsControl;
@@ -28,7 +28,7 @@ namespace ChatBot.Windows
 
 
         private int currentIndex = 0;
-        public NewConversationDetails(NewConversationDetailsViewModel newConversationDetailsViewModel)
+        public NewConversationDetailsWindow(NewConversationDetailsViewModel newConversationDetailsViewModel)
         {
             _newConversationDetailsViewModel = newConversationDetailsViewModel;
             this.DataContext = newConversationDetailsViewModel;
