@@ -28,7 +28,7 @@
     <Compile Update="Components\NewConversationDetails\PersonaItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\NewConversationDetails.xaml.cs">
+    <Compile Update="Windows\NewConversationDetailsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -57,7 +57,7 @@
     <Page Update="Components\ModernScrollViewStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\NewConversationDetails.xaml">
+    <Page Update="Windows\NewConversationDetailsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
