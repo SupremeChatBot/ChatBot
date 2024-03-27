@@ -1,4 +1,4 @@
-﻿using ChatBot.MVVM.ViewModel;
+﻿using ChatBot.ViewModel;
 using ChatBot_Repo.EventAggregator;
 using ChatBot_Repo.Services;
 using ChatBot_Repo.Services.Implementation;
@@ -24,8 +24,8 @@ namespace ChatBot
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<MainWindow>();
-                    services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
+                    services.AddSingleton<MainWindow>();                    
+                    services.AddTransient<IGeminiService, GeminiService>();                    
                     services.AddSingleton<IEventAggregator, EventAggregator>();
                     services.AddSingleton<NewConversationDetailsViewModel>();
                 }).Build();

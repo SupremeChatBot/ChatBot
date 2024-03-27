@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:components="clr-namespace:ChatBot.Components"
-        xmlns:viewModel="clr-namespace:ChatBot.MVVM.ViewModel"        
-        xmlns:newConversationDetails="clr-namespace:ChatBot.Components.NewConversationDetails"
+                
         mc:Ignorable="d"
         Title="NewConversationDetails" Height="400" Width="600"        
         WindowStyle="None"
@@ -96,7 +95,9 @@
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,50">
                     <ContentControl x:Name="UserControlContentControl"/>
                 </Grid>
-                
+                <components:Popup Title="Warning" >
+                    <TextBlock>Text...</TextBlock>
+                </components:Popup>
 
 
             </Grid>

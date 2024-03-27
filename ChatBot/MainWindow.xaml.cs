@@ -1,6 +1,5 @@
 ﻿using ChatBot.Components;
-using ChatBot.MVVM.Model;
-using ChatBot.MVVM.ViewModel;
+using ChatBot.ViewModel;
 using ChatBot.Windows;
 using ChatBot_Repo.EventAggregator;
 using ChatBot_Repo.Services;
@@ -25,10 +24,10 @@ namespace ChatBot
     public partial class MainWindow : Window
     {
         private NewConversationDetailsWindow _choosePersonaWindow;
-        private IGoogleGeminiService _googleGeminiService;
+        private IGeminiService _googleGeminiService;
         private NewConversationDetailsViewModel _newConversationDetailsViewModel; 
         private IEventAggregator _eventAggregator;
-        public MainWindow(IGoogleGeminiService googleGeminiService,
+        public MainWindow(IGeminiService googleGeminiService,
             IEventAggregator eventAggregator,
             NewConversationDetailsViewModel newConversationDetailsViewModel)
         {

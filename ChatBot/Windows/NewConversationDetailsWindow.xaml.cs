@@ -1,5 +1,5 @@
 ﻿using ChatBot.Components.NewConversationDetails;
-using ChatBot.MVVM.ViewModel;
+using ChatBot.ViewModel;
 using ChatBot_Repo.EventAggregator;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace ChatBot.Windows
-{   
+{
     public partial class NewConversationDetailsWindow : Window
     {
         private ChoosePersona choosePersonaControl;
@@ -31,6 +31,8 @@ namespace ChatBot.Windows
         public NewConversationDetailsWindow(NewConversationDetailsViewModel newConversationDetailsViewModel)
         {
             _newConversationDetailsViewModel = newConversationDetailsViewModel;
+            _newConversationDetailsViewModel.OnInputValidationFail += ShowInvalidConversationDetails;
+            _newConversationDetailsViewModel.OnSuccessInsertion+= HandleSuccessfulConversationCreation;
             this.DataContext = newConversationDetailsViewModel;
             InitializeComponent();
             InitializeUserControls();
@@ -39,14 +41,7 @@ namespace ChatBot.Windows
         {
             Left = Left + e.HorizontalChange;
             Top = Top + e.VerticalChange;
-        }
-        public void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {            
-            if(this.DataContext is NewConversationDetailsViewModel viewModel && sender is ToggleButton toggleButton)
-            {
-                viewModel.SaveNewConversationDetailsCommand.Execute(toggleButton.Content);
-            }            
-        }
+        }       
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -57,9 +52,8 @@ namespace ChatBot.Windows
             if (this.DataContext is NewConversationDetailsViewModel viewModel && sender is Button toggleButton)
             {
                 // Call the command in the ViewModel
-                viewModel.SaveNewConversationDetailsCommand.Execute(sender);
-                currentIndex = 0;
-                this.Hide();
+                viewModel.CreateNewConversationCommand.Execute(sender);
+                UserControlContentControl.Content = choosePersonaControl;                                                             
             }            
         }
 
@@ -130,6 +124,22 @@ namespace ChatBot.Windows
                 FontFamily = new FontFamily("/Fonts/#Poppins"),
                 Margin = new(30, 10, 0, 0)
             };
+        }  
+        private void ShowInvalidConversationDetails(object sender, EventArgs e)
+        {
+            MessageBox.Show("The persona is not chosen, or the conversation name is invalid.",
+                   "Warning"
+                   , MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+        private void HandleSuccessfulConversationCreation(object sender,EventArgs e)
+        {
+
+            MessageBox.Show("Successfully inserted the conversation.",
+                   "Info"
+                   , MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Hide();   
+        }
+       
+       
     }
 }

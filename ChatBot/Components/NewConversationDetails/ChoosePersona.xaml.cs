@@ -1,5 +1,5 @@
-﻿using ChatBot.MVVM.Model;
-using ChatBot.MVVM.ViewModel;
+﻿using ChatBot.ViewModel;
+using ChatBot_Repo.Payload.Response;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,12 +31,12 @@ namespace ChatBot.Components.NewConversationDetails
             set { SetValue(SelectedIndexProperty, value); }
         }
         public static readonly DependencyProperty PersonasSourceProperty =
-         DependencyProperty.Register("PersonasSource", typeof(ObservableCollection<PersonaItemModel>), typeof(ChoosePersona),
+         DependencyProperty.Register("PersonasSource", typeof(ObservableCollection<PersonaItemDTO>), typeof(ChoosePersona),
               new FrameworkPropertyMetadata(
             null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-        public ObservableCollection<PersonaItemModel> PersonasSource
+        public ObservableCollection<PersonaItemDTO> PersonasSource
         {
-            get { return (ObservableCollection<PersonaItemModel>)GetValue(PersonasSourceProperty); }
+            get { return (ObservableCollection<PersonaItemDTO>)GetValue(PersonasSourceProperty); }
             set { SetValue(PersonasSourceProperty, value); }
         }      
               
