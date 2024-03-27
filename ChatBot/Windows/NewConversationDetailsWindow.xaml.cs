@@ -1,5 +1,5 @@
 ﻿using ChatBot.Components.NewConversationDetails;
-using ChatBot.MVVM.ViewModel;
+using ChatBot.ViewModel;
 using ChatBot_Repo.EventAggregator;
 using System;
 using System.Collections.Generic;
@@ -31,6 +31,8 @@ namespace ChatBot.Windows
         public NewConversationDetailsWindow(NewConversationDetailsViewModel newConversationDetailsViewModel)
         {
             _newConversationDetailsViewModel = newConversationDetailsViewModel;
+            _newConversationDetailsViewModel.OnInputValidationFail += ShowInvalidConversationDetails;
+            _newConversationDetailsViewModel.OnSuccessInsertion+= HandleSuccessfulConversationCreation;
             this.DataContext = newConversationDetailsViewModel;
             InitializeComponent();
             InitializeUserControls();
@@ -51,8 +53,7 @@ namespace ChatBot.Windows
             {
                 // Call the command in the ViewModel
                 viewModel.CreateNewConversationCommand.Execute(sender);
-                currentIndex = 0;
-                this.Hide();
+                UserControlContentControl.Content = choosePersonaControl;                                                             
             }            
         }
 
@@ -123,6 +124,22 @@ namespace ChatBot.Windows
                 FontFamily = new FontFamily("/Fonts/#Poppins"),
                 Margin = new(30, 10, 0, 0)
             };
+        }  
+        private void ShowInvalidConversationDetails(object sender, EventArgs e)
+        {
+            MessageBox.Show("The persona is not chosen, or the conversation name is invalid.",
+                   "Warning"
+                   , MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+        private void HandleSuccessfulConversationCreation(object sender,EventArgs e)
+        {
+
+            MessageBox.Show("Successfully inserted the conversation.",
+                   "Info"
+                   , MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Hide();   
+        }
+       
+       
     }
 }

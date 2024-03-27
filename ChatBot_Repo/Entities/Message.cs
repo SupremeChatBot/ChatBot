@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 namespace ChatBot_Repo.Entities
 {
     public class Message
-    {
-        [Key]        
-        public int Id { get; set; } 
+    {                     
         public string Content { get; set; }
+        public string Sender { get; set; }
         public int ConversationId { get; set; } 
 
-        public Conversation Conversation { get; set; }  
+        
     }
 }

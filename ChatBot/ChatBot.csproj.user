@@ -22,7 +22,10 @@
     <Compile Update="Components\NewConversationDetails\ConversationDetails.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="MVVM\View\ConversationView.xaml.cs">
+    <Compile Update="Components\Popup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ConversationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\NewConversationDetails\PersonaItem.xaml.cs">
@@ -57,13 +60,16 @@
     <Page Update="Components\ModernScrollViewStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Components\Popup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Windows\NewConversationDetailsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MVVM\View\ConversationView.xaml">
+    <Page Update="View\ConversationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\RoundedButtonStyle.xaml">

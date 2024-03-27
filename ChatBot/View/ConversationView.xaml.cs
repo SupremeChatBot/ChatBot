@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChatBot.MVVM.View
+namespace ChatBot.View
 {
     /// <summary>
     /// Interaction logic for ConversationView.xaml
