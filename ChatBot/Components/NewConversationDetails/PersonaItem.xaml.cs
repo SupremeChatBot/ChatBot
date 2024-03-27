@@ -56,6 +56,16 @@ namespace ChatBot.Components.NewConversationDetails
             set { SetValue(PersonaDescriptionProperty, value); }
         }
 
+        public string ImageUrl
+        {
+            get { return (string)GetValue(PersonaDescriptionProperty); }
+            set { SetValue(PersonaDescriptionProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty ImageUrlProperty =
+            DependencyProperty.Register("ImageUrl", typeof(string), typeof(PersonaItem));
+
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register("ItemWidth", typeof(double), typeof(PersonaItem));
         public static readonly DependencyProperty ItemHeightProperty =

@@ -77,9 +77,7 @@ namespace ChatBot.MVVM.ViewModel
             new { Id = 4, Name = "Anne Hathaway", Image = "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/9/26/1246652/Anne-Hathaway-2.jpg", Description = "I want you to act as Anne Hathaway, expert in acting and versatility, specializing in diverse roles and captivating performances." },
             new { Id = 5, Name = "Andrew Tate", Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png/640px-Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png", Description = "I want you to act as Andrew Tate, expert in fitness and self-defense, specializing in kickboxing and weightlifting." }
             };
-            //List<string> names = new List<string>() { "Albert", "Alice", "Hubert", "Lmao", "Programmer" };
-
-            //int id = 0;
+    
             foreach (var p in personas)
             {
                 Personas.Add(new PersonaItemModel()

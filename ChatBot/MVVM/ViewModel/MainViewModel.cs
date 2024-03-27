@@ -21,12 +21,13 @@ using ChatBot_Repo.Services;
 using ChatBot_Repo.Services.Implementation;
 using ChatBot_Repo.Entities;
 using ChatBot_Repo.EventAggregator;
+using System.Printing;
 namespace ChatBot.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
         public ObservableCollection<ConversationItemModel> Conversations { get; set; }
-        public ObservableCollection<MessageItemModel> MessageItems { get; set; }
+        public ObservableCollection<MessageItemModel> Messages { get; set; }
         public bool IsButtonChecked
         {
             get { return true; }
@@ -39,6 +40,7 @@ namespace ChatBot.MVVM.ViewModel
             }
         }
         private string _request;
+        
         public string Request
         {
             get { return _request; }
@@ -51,27 +53,65 @@ namespace ChatBot.MVVM.ViewModel
         private string _response;
         private IGoogleGeminiService _googleGeminiService;
         private IEventAggregator _eventAggregator;
-        
-        
+        private List<MessageItemModel> Messages1 = new List<MessageItemModel>()
+        {
+            new MessageItemModel() {Sender="Me",Content="Hello world!"},
+            new MessageItemModel() {Sender="Gemini",Content="Hi there!"},
+            new MessageItemModel() {Sender="Me",Content="I love my life!"},
+            new MessageItemModel() {Sender="Gemini",Content="So do I!"},
+        };
+        private List<MessageItemModel> Messages2 = new List<MessageItemModel>()
+        {
+            new MessageItemModel() {Sender="Me",Content="Hello Gemini!"},
+            new MessageItemModel() {Sender="Gemini",Content="Hi there, User!"},
+            new MessageItemModel() {Sender="Me",Content="How's the weather today?"},
+            new MessageItemModel() {Sender="Gemini",Content="Perfect for a morning ride!"},
+        };
+
+
         public MainViewModel(IGoogleGeminiService googleGeminiService,IEventAggregator eventAggregator)
         {
             _googleGeminiService = googleGeminiService;
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe<ConversationItemModel>(AddNewConversation);
             InitializeObjects();
-            //LoadConversations();
+            //LoadConversations();            
         }       
         public async void SendMessage()
         {
             if (_request == null) return;
             _request = await AddRequestToMessagePanel();
             _response = await _googleGeminiService.Chat(_request);
-            await AddResponseToMessageItems(_response);
+            await AddResponseToMessages(_response);
         }
         public void ShowSelectedConversation(int index)
         {
             ConversationItemModel item = Conversations[index];
-            MessageBox.Show("Currently selected model: " + item.Name);
+            Messages.Clear();
+            if (index == 0)
+            {
+                foreach (var msg in Messages1)
+                {
+                    Messages.Add(new MessageItemModel()
+                    {
+                        Content = msg.Content,
+                        ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
+                        Sender = msg.Sender
+                    });
+                }
+            }
+            else
+            {
+                foreach (var msg in Messages2)
+                {
+                    Messages.Add(new MessageItemModel()
+                    {
+                        Content = msg.Content,
+                        ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
+                        Sender = msg.Sender
+                    });
+                }
+            }
         }
         private async Task<string> AddRequestToMessagePanel()
         {
@@ -79,7 +119,7 @@ namespace ChatBot.MVVM.ViewModel
             var request = await GetRequestAsync();
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                MessageItems.Add(new MessageItemModel()
+                Messages.Add(new MessageItemModel()
                 {
                     Content = request,
                     ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
@@ -100,11 +140,11 @@ namespace ChatBot.MVVM.ViewModel
                 return Request;
             });
         }
-        private Task AddResponseToMessageItems(string message)
+        private Task AddResponseToMessages(string message)
         {
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                MessageItems.Add(new MessageItemModel()
+                Messages.Add(new MessageItemModel()
                 {
                     Content = message,
                     ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
@@ -116,25 +156,8 @@ namespace ChatBot.MVVM.ViewModel
         private void InitializeObjects()
         {
             Conversations = new ObservableCollection<ConversationItemModel>();
-            MessageItems = new ObservableCollection<MessageItemModel>();
-        }
-        private void LoadConversations()
-        {
-            List<string> conversationNames = new List<string>()
-            {
-                "Healthcare","Politics","Education","Science", "This is a super fucking long text",
-                "Healthcare","Politics","Education","Science", "This is a super fucking long text"
-            };
-            int count = 1;
-            foreach (string conversationName in conversationNames)
-            {
-                Conversations.Add(new ConversationItemModel()
-                {
-                    Name = conversationName,
-
-                });
-            }
-        }
+            Messages = new ObservableCollection<MessageItemModel>();
+        }       
 
         private void AddNewConversation(ConversationItemModel conversationItemModel)
         {

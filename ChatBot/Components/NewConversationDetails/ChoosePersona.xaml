@@ -31,8 +31,9 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <newConversationDetails:PersonaItem ItemWidth="540" ItemHeight="100" 
+                    <newConversationDetails:PersonaItem ItemWidth="540" ItemHeight="110" 
                                                  BorderThickness="2"
+                                                ImageUrl="{Binding ImageUrl}"
                                                  PersonaName="{Binding Name}"
                                                  PersonaDescription="{Binding Description}"/>
                 </DataTemplate>

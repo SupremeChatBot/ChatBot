@@ -113,7 +113,7 @@
                               Grid.Column="1" Grid.Row="1"
                               HorizontalScrollBarVisibility="Hidden" Margin="15,0,10,0"
                               Style="{StaticResource ModernScrollViewStyle}">
-                    <ItemsControl ItemsSource="{Binding MessageItems}">
+                    <ItemsControl ItemsSource="{Binding Messages}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical"/>
