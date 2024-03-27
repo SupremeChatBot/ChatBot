@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace ChatBot.Windows
-{   
+{
     public partial class NewConversationDetailsWindow : Window
     {
         private ChoosePersona choosePersonaControl;
@@ -39,14 +39,7 @@ namespace ChatBot.Windows
         {
             Left = Left + e.HorizontalChange;
             Top = Top + e.VerticalChange;
-        }
-        public void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {            
-            if(this.DataContext is NewConversationDetailsViewModel viewModel && sender is ToggleButton toggleButton)
-            {
-                viewModel.SaveNewConversationDetailsCommand.Execute(toggleButton.Content);
-            }            
-        }
+        }       
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -57,7 +50,7 @@ namespace ChatBot.Windows
             if (this.DataContext is NewConversationDetailsViewModel viewModel && sender is Button toggleButton)
             {
                 // Call the command in the ViewModel
-                viewModel.SaveNewConversationDetailsCommand.Execute(sender);
+                viewModel.CreateNewConversationCommand.Execute(sender);
                 currentIndex = 0;
                 this.Hide();
             }            

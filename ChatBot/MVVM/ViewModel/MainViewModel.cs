@@ -75,18 +75,21 @@ namespace ChatBot.MVVM.ViewModel
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe<ConversationItemModel>(AddNewConversation);
             InitializeObjects();
-            //LoadConversations();            
+            LoadConversations();
         }       
         public async void SendMessage()
         {
             if (_request == null) return;
-            _request = await AddRequestToMessagePanel();
+            _request = await AddRequestToMessages();
             _response = await _googleGeminiService.Chat(_request);
             await AddResponseToMessages(_response);
         }
         public void ShowSelectedConversation(int index)
         {
             ConversationItemModel item = Conversations[index];
+            //b2: Lấy Messages (nhiều cái Messages) dựa vào Id, nằm trong ConversationItemModel
+            // Lấy bằng cách nào: tạo 1 service lấy Messages, v.d. _messageService.Get(int ConversationId)
+            //b3: Sau khi lấy xong từ _messageService, thì nạp vô cái ObservableCollection<=
             Messages.Clear();
             if (index == 0)
             {
@@ -113,9 +116,23 @@ namespace ChatBot.MVVM.ViewModel
                 }
             }
         }
-        private async Task<string> AddRequestToMessagePanel()
+        private void LoadConversations()
         {
+            //B1. Lấy từ Db Lên: List<Conversation> = _conversationService.GetAll()
+            //B2. Map từng Conversation Entity sang ConversationItemModel
+            List<ConversationItemModel> conversations = new List<ConversationItemModel>() { 
+                
+                new ConversationItemModel()
+                {
+                    
+                }    
+            };
+            //B3. Bốc từng thằng ConversationItemModel nạp vô
+            //ObservableCollection<ConversationItemModel> (load ConversationItemModel lên UI.)
 
+        }
+        private async Task<string> AddRequestToMessages()
+        {
             var request = await GetRequestAsync();
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {

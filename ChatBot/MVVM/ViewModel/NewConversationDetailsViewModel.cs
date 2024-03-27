@@ -2,6 +2,8 @@
 using ChatBot.Windows;
 using ChatBot_Repo.Core;
 using ChatBot_Repo.EventAggregator;
+using ChatBot_Repo.Services;
+using ChatBot_Repo.Services.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,10 +21,10 @@ namespace ChatBot.MVVM.ViewModel
     public class NewConversationDetailsViewModel : ObservableObject
     {
         public ObservableCollection<PersonaItemModel> Personas { get; set; }
-        public ICommand SaveNewConversationDetailsCommand
+        public ICommand CreateNewConversationCommand
         {
             get =>
-                new RelayCommand(SaveNewConversationDetails, CanCmdExec);
+                new RelayCommand(CreateNewConversation, CanCmdExec);
         }
         public ICommand ChangeSelectedPersonaCommand
         {
@@ -58,10 +60,13 @@ namespace ChatBot.MVVM.ViewModel
             }
         }
         private readonly IEventAggregator _eventAggregator;
+        private readonly ICreateNewConversationService _createNewConversationService;
 
-        public NewConversationDetailsViewModel(IEventAggregator eventAggregator)
+        public NewConversationDetailsViewModel(IEventAggregator eventAggregator,
+            ICreateNewConversationService createNewConversationService)
         {
-            _eventAggregator = eventAggregator;
+            _eventAggregator = eventAggregator; 
+            _createNewConversationService = createNewConversationService;
             InitializeObjects();
             PopulateDummyData();
         }
@@ -77,7 +82,7 @@ namespace ChatBot.MVVM.ViewModel
             new { Id = 4, Name = "Anne Hathaway", Image = "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/9/26/1246652/Anne-Hathaway-2.jpg", Description = "I want you to act as Anne Hathaway, expert in acting and versatility, specializing in diverse roles and captivating performances." },
             new { Id = 5, Name = "Andrew Tate", Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png/640px-Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png", Description = "I want you to act as Andrew Tate, expert in fitness and self-defense, specializing in kickboxing and weightlifting." }
             };
-    
+
             foreach (var p in personas)
             {
                 Personas.Add(new PersonaItemModel()
@@ -85,7 +90,7 @@ namespace ChatBot.MVVM.ViewModel
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
-                    Image = p.Image
+                    ImageUrl = p.Image
                 });
             }
         }
@@ -93,10 +98,12 @@ namespace ChatBot.MVVM.ViewModel
         {
             Personas = new ObservableCollection<PersonaItemModel>();
         }
-        private void SaveNewConversationDetails(object obj)
+        private void CreateNewConversation(object obj)
         {
             string name = ConversationName;
             int index = selectedIndex;
+            PersonaItemModel personaItemModel = Personas[index];
+
             _eventAggregator.Publish(new ConversationItemModel()
             {
                 Id = 1,

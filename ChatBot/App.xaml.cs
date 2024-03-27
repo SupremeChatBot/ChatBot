@@ -26,6 +26,7 @@ namespace ChatBot
                 {
                     services.AddSingleton<MainWindow>();
                     services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
+                    services.AddTransient<ICreateNewConversationService, CreateNewConversationService>();
                     services.AddSingleton<IEventAggregator, EventAggregator>();
                     services.AddSingleton<NewConversationDetailsViewModel>();
                 }).Build();
