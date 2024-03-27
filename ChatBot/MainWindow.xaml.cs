@@ -24,7 +24,7 @@ namespace ChatBot
 {
     public partial class MainWindow : Window
     {
-        private NewConversationDetails _choosePersonaWindow;
+        private NewConversationDetailsWindow _choosePersonaWindow;
         private IGoogleGeminiService _googleGeminiService;
         private NewConversationDetailsViewModel _newConversationDetailsViewModel; 
         private IEventAggregator _eventAggregator;
@@ -56,7 +56,7 @@ namespace ChatBot
     
         private void InitializeObjects()
         {
-            _choosePersonaWindow = new NewConversationDetails(_newConversationDetailsViewModel);
+            _choosePersonaWindow = new NewConversationDetailsWindow(_newConversationDetailsViewModel);
             DataContext = new MainViewModel(_googleGeminiService,_eventAggregator);
         }
 
