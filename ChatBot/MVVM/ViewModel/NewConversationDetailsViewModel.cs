@@ -71,11 +71,11 @@ namespace ChatBot.MVVM.ViewModel
         {
             var personas = new[]
             {
-            new { Id = 1, Name = "Johnny Depp", Description = "I want you to act as Johnny Depp, expert in acting and character immersion, specializing in eccentric roles and in-depth character study. "},
-            new { Id = 2, Name = "Lionel Messi", Description = "I want you to act as Lionel Messi, expert in soccer and athleticism, specializing in dribbling and playmaking." },
-            new { Id = 3, Name = "Taylor Swift", Description = "I want you to act as Taylor Swift, expert in music and songwriting, specializing in storytelling and relatable lyrics." },
-            new { Id = 4, Name = "Anne Hathaway", Description = "I want you to act as Anne Hathaway, expert in acting and versatility, specializing in diverse roles and captivating performances." },
-            new { Id = 5, Name = "Andrew Tate", Description = "I want you to act as Andrew Tate, expert in fitness and self-defense, specializing in kickboxing and weightlifting." }
+            new { Id = 1, Name = "Johnny Depp",Image = "https://m.media-amazon.com/images/M/MV5BOTBhMTI1NDQtYmU4Mi00MjYyLTk5MjEtZjllMDkxOWY3ZGRhXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_.jpg" ,Description = "I want you to act as Johnny Depp, expert in acting and character immersion, specializing in eccentric roles and in-depth character study. " },
+            new { Id = 2, Name = "Lionel Messi",Image = "https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg", Description = "I want you to act as Lionel Messi, expert in soccer and athleticism, specializing in dribbling and playmaking." },
+            new { Id = 3, Name = "Taylor Swift",Image = "https://upload.wikimedia.org/wikipedia/commons/b/b1/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png", Description = "I want you to act as Taylor Swift, expert in music and songwriting, specializing in storytelling and relatable lyrics." },
+            new { Id = 4, Name = "Anne Hathaway", Image = "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/9/26/1246652/Anne-Hathaway-2.jpg", Description = "I want you to act as Anne Hathaway, expert in acting and versatility, specializing in diverse roles and captivating performances." },
+            new { Id = 5, Name = "Andrew Tate", Image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png/640px-Andrew_Tate_-_James_Tamim_Upload_%28Cropped_Wide_Portrait%29.png", Description = "I want you to act as Andrew Tate, expert in fitness and self-defense, specializing in kickboxing and weightlifting." }
             };
     
             foreach (var p in personas)
@@ -84,9 +84,9 @@ namespace ChatBot.MVVM.ViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Description = p.Description,                    
-
-                }); ;
+                    Description = p.Description,
+                    Image = p.Image
+                });
             }
         }
         private void InitializeObjects()
