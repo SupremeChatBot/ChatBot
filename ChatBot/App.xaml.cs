@@ -25,7 +25,8 @@ namespace ChatBot
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton<MainWindow>();                    
-                    services.AddTransient<IGeminiService, GeminiService>();                    
+                    services.AddTransient<IGeminiService, GeminiService>();
+                    services.AddTransient<IGoogleGeminiService, GoogleGeminiService>();
                     services.AddSingleton<IEventAggregator, EventAggregator>();
                     services.AddSingleton<NewConversationDetailsViewModel>();
                 }).Build();

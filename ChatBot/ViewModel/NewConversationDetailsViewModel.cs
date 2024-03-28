@@ -18,6 +18,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using ChatBot_Repo.Utils;
 using ChatBot_Repo.Constants;
+using Microsoft.IdentityModel.Tokens;
+using ChatBot_Repo.Entities;
 
 namespace ChatBot.ViewModel
 {
@@ -84,11 +86,14 @@ namespace ChatBot.ViewModel
         private PersonaItemDTO _selectedPersonaItemDto;
         private readonly IEventAggregator _eventAggregator;
         private readonly IGeminiService _geminiService;
+        private readonly IGoogleGeminiService _googleGeminiService;
 
-        public NewConversationDetailsViewModel(IEventAggregator eventAggregator, IGeminiService geminiService)
+
+        public NewConversationDetailsViewModel(IEventAggregator eventAggregator, IGeminiService geminiService , IGoogleGeminiService googleGeminiService)
         {
             _eventAggregator = eventAggregator;
             _geminiService = geminiService;
+            _googleGeminiService = googleGeminiService;
             InitializeObjects();
             PopulateDummyData();
         }
@@ -130,21 +135,21 @@ namespace ChatBot.ViewModel
             OnSuccessInsertion.Invoke(this, EventArgs.Empty);
             IsLoading = false;
         }
-        private Task<ConversationItemDTO> SendCreateRequestToGemini()
+        private async Task<ConversationItemDTO> SendCreateRequestToGemini()
         {
-            return Task.Run(() => _geminiService.CreateNewConversation(new ImpersonateConversationRequest()
+            var respondPrompt = await _googleGeminiService.Chat(_selectedPersonaItemDto.Description);
+            
+            var result = await _geminiService.CreateNewConversation(new ImpersonateConversationRequest()
             {
                 Name = ConversationName,
                 SampleMessages = new List<ImpersonateMessageRequest>()
                {
-                   new ImpersonateMessageRequest(){ Content ="please impersonate as a furry",Sender = "user" },
-                   new ImpersonateMessageRequest(){ Content ="nuzzles you playfully with my fluffy snout OwO " +
-                   "Hewwo there, hooman! It's so nice to meet you! My name is Sparky, and I'm a playful little " +
-                   "fox with a big heart and even bigger ears! What kind of adventures are you up for today?" +
-                   "We could frolic through the forest, chase butterflies in the meadow, or maybe just cuddle up " +
-                   "and share some yummy snacks! wags tail excitedly",Sender = "user" }
+                   new ImpersonateMessageRequest(){ Content =_selectedPersonaItemDto.Description,Sender = "user" },
+                   new ImpersonateMessageRequest(){ Content = respondPrompt,Sender = "model" }
                }
-            }));
+            });
+
+            return result;
         }
         private void ChangeSelectedPersona(object obj)
         {

@@ -94,37 +94,21 @@ namespace ChatBot.ViewModel
             //_response = await _geminiService.Chat(_request);
             await AddResponseToMessages(_response);
         }
-        public void ShowSelectedConversation(int index)
+        public async void ShowSelectedConversation(int index)
         {
             ConversationItemDTO item = Conversations[index];
+            var listMessages = await _geminiService.GetMessagesByConversationId(item.Id);
+            Console.WriteLine(listMessages);
             //b2: Lấy Messages (nhiều cái Messages) dựa vào Id, nằm trong ConversationItemModel
             // Lấy bằng cách nào: tạo 1 service lấy Messages, v.d. _messageService.Get(int ConversationId)
             //b3: Sau khi lấy xong từ _messageService, thì nạp vô cái ObservableCollection<=
             Messages.Clear();
-            if (index == 0)
-            {
-                foreach (var msg in Messages1)
+
+                foreach (var msg in listMessages)
                 {
-                    Messages.Add(new MessageItemDTO()
-                    {
-                        Content = msg.Content,
-                        ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
-                        Sender = msg.Sender
-                    });
+                    Messages.Add(msg);
                 }
-            }
-            else
-            {
-                foreach (var msg in Messages2)
-                {
-                    Messages.Add(new MessageItemDTO()
-                    {
-                        Content = msg.Content,
-                        ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
-                        Sender = msg.Sender
-                    });
-                }
-            }
+            
         }
         private async void LoadConversations()
         {
