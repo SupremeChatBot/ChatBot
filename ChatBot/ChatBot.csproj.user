@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\LoadingOverlay.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\NewConversationDetails\ChoosePersona.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +39,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\LoadingOverlay.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\NewConversationDetails\ChoosePersona.xaml">
       <SubType>Designer</SubType>
     </Page>

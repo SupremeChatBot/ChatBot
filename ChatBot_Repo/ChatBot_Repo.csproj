@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
 	  <PackageReference Include="Google_GenerativeAI" Version="0.1.15" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

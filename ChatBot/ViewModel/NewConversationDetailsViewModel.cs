@@ -68,8 +68,17 @@ namespace ChatBot.ViewModel
                 OnPropertyChanged(nameof(IsOperationSuccessful));
             }
         }
-        private bool _isOperationSuccessful;
-        private bool _areConversationDetailsValidUI;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+        private bool _isLoading;
+        private bool _isOperationSuccessful;        
         private string _conversationName;
         private int _selectedIndex;
         private PersonaItemDTO _selectedPersonaItemDto;
@@ -115,9 +124,11 @@ namespace ChatBot.ViewModel
                 OnInputValidationFail.Invoke(this, EventArgs.Empty);
                 return;
             }
+            IsLoading = true;
             var conversationItemDto = await SendCreateRequestToGemini();            
             _eventAggregator.Publish(conversationItemDto);
             OnSuccessInsertion.Invoke(this, EventArgs.Empty);
+            IsLoading = false;
         }
         private Task<ConversationItemDTO> SendCreateRequestToGemini()
         {

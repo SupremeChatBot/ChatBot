@@ -98,7 +98,13 @@
                 <components:Popup Title="Warning" >
                     <TextBlock>Text...</TextBlock>
                 </components:Popup>
-
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <components:LoadingOverlay
+                       Width="600" Height="400"
+                        IsLoading="True"
+                    />
+                </Grid>
+                
 
             </Grid>
         </Border>
