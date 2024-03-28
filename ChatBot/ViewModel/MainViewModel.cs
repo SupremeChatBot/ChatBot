@@ -39,8 +39,6 @@ namespace ChatBot.ViewModel
                 }
             }
         }
-        private string _request;
-
         public string Request
         {
             get { return _request; }
@@ -50,6 +48,17 @@ namespace ChatBot.ViewModel
                 OnPropertyChanged();
             }
         }
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+        private bool _isLoading;
+        private string _request;      
         private string _response;
         private IEventAggregator _eventAggregator;
         private readonly IGeminiService _geminiService;
@@ -117,17 +126,21 @@ namespace ChatBot.ViewModel
                 }
             }
         }
-        private void LoadConversations()
+        private async void LoadConversations()
         {
+            IsLoading = true;
             //B1. Lấy từ Db Lên: List<Conversation> = _conversationService.GetAll()
             //B2. Map từng Conversation Entity sang ConversationItemModel
-            List<ConversationItemDTO> conversations = new List<ConversationItemDTO>() {
+            //List<ConversationItemDTO> conversations = new List<ConversationItemDTO>() {
 
-                new ConversationItemDTO()
-                {
+            //    new ConversationItemDTO()
+            //    {
 
-                }
-            };
+            //    }
+            //};
+            //Giả lập việc chờ để load dữ liệu
+            await Task.Delay(3000);
+            IsLoading = false;
             //B3. Bốc từng thằng ConversationItemModel nạp vô
             //ObservableCollection<ConversationItemModel> (load ConversationItemModel lên UI.)
 

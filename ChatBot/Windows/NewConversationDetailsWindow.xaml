@@ -91,13 +91,10 @@
                             Background="#000034" FontSize="16" FontFamily="/Fonts/#Poppins"
                             Style="{StaticResource RoundedButton}"/>
                 </Grid>
-             
+
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,50">
                     <ContentControl x:Name="UserControlContentControl"/>
                 </Grid>
-                <components:Popup Title="Warning" >
-                    <TextBlock>Text...</TextBlock>
-                </components:Popup>
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                     <components:LoadingOverlay
                        Width="600" Height="400"
