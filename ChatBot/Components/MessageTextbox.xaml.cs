@@ -23,6 +23,11 @@ namespace ChatBot.Components
         {
             InitializeComponent();
         }
+        public void ClearTextbox()
+        {
+            messageTextbox.Text = string.Empty;
+        }
+
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

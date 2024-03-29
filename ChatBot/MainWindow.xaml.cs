@@ -61,8 +61,9 @@ namespace ChatBot
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {                
                 SendMessage();
+                msgTextbox.ClearTextbox();
             }
             catch (Exception error)
             {

@@ -42,7 +42,6 @@ namespace ChatBot.Components
         public MessageItem()
         {
             InitializeComponent();
-        }        
-     
+        }                
     }
 }
