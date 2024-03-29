@@ -61,7 +61,6 @@ namespace ChatBot.ViewModel
         }
         private bool _isLoading;
         private string _request;      
-        private string _response;
         private IEventAggregator _eventAggregator;
         private readonly IGeminiService _geminiService;
         private ConversationItemDTO _selectedConversationItemModel;
@@ -93,8 +92,13 @@ namespace ChatBot.ViewModel
         {
             if (_request == null) return;
             _request = await AddRequestToMessages();
-            //_response = await _geminiService.CreateNewConversation();
-            await AddResponseToMessages(_response);
+            var response = await _geminiService.CreateNewMessage(new CreateNewChatParameters()
+            {
+                Content = _request,
+                Sender = "user",
+                ConversationId = "07dee5e3-2aa4-4e3d-acdd-f6b3990a24de"
+            });
+            await AddResponseToMessages(response);
         }
         public async void ShowSelectedConversation(int index)
         {
@@ -167,16 +171,11 @@ namespace ChatBot.ViewModel
                 return Request;
             });
         }
-        private Task AddResponseToMessages(string message)
+        private Task AddResponseToMessages(MessageItemDTO message)
         {
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                Messages.Add(new MessageItemDTO()
-                {
-                    Content = message,
-                    ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
-                    Sender = "Gemini"
-                });
+                Messages.Add(message);
             }).Task;
         }
 
