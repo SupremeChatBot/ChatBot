@@ -38,9 +38,9 @@ namespace ChatBot_Repo.Services.Implementation
             return _conversationItemDto;
         }
 
-        public async Task<MessageItemDTO> CreateNewMessage(ImpersonateConversationRequest request)
+        public async Task<MessageItemDTO> CreateNewMessage(CreateNewChatParameters request)
         {
-            var requestString = await ImpersonateConversationRequestBuilder.Build(request);
+            var requestString = await MessageRequestBuilder.Build(request);
             _response = await _apiService.PostNewMeassge(requestString);
             await MapResponseToMessageItemDTO();
             return _messageItemDto;
