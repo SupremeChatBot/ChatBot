@@ -54,8 +54,7 @@ namespace ChatBot
         }
     
         private void InitializeObjects()
-        {
-            _choosePersonaWindow = new NewConversationDetailsWindow(_newConversationDetailsViewModel);
+        {            
             DataContext = new MainViewModel(_googleGeminiService,_eventAggregator);
         }
 
@@ -89,11 +88,12 @@ namespace ChatBot
         {
             var mainViewModel = DataContext as MainViewModel;
             int selectedIndex = ConversationListView.SelectedIndex;
-            mainViewModel!.ShowSelectedConversation(selectedIndex);
+            mainViewModel!.ShowMessagesBySelectedConversation(selectedIndex);
         }
 
         private void NewChatButton_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            _choosePersonaWindow = new NewConversationDetailsWindow(_newConversationDetailsViewModel);
             _choosePersonaWindow.Show();
             ConversationScrollViewer.ScrollToBottom();
         }
