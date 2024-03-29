@@ -44,7 +44,7 @@ namespace ChatBot.Windows
         }       
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
       
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace ChatBot.Windows
             MessageBox.Show("Successfully inserted the conversation.",
                    "Info"
                    , MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Hide();   
+            this.Close();   
         }
        
        

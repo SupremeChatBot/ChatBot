@@ -26,21 +26,10 @@ using ChatBot_Repo.Payload.Request;
 
 namespace ChatBot.ViewModel
 {
-    class MainViewModel : ObservableObject
+    public class MainViewModel : ObservableObject
     {
         public ObservableCollection<ConversationItemDTO> Conversations { get; set; }
         public ObservableCollection<MessageItemDTO> Messages { get; set; }
-        public bool IsButtonChecked
-        {
-            get { return true; }
-            set
-            {
-                if (true)
-                {
-                    //this.ResetRemainingConversationItemsColor();
-                }
-            }
-        }
         public string Request
         {
             get { return _request; }
@@ -60,25 +49,10 @@ namespace ChatBot.ViewModel
             }
         }
         private bool _isLoading;
-        private string _request;      
+        private string _request;
         private IEventAggregator _eventAggregator;
-        private readonly IGeminiService _geminiService;
-        private ConversationItemDTO _selectedConversationItemModel;
-        private List<MessageItemDTO> Messages1 = new List<MessageItemDTO>()
-        {
-            new MessageItemDTO() {Sender="Me",Content="Hello world!"},
-            new MessageItemDTO() {Sender="Gemini",Content="Hi there!"},
-            new MessageItemDTO() {Sender="Me",Content="I love my life!"},
-            new MessageItemDTO() {Sender="Gemini",Content="So do I!"},
-        };
-        private List<MessageItemDTO> Messages2 = new List<MessageItemDTO>()
-        {
-            new MessageItemDTO() {Sender="Me",Content="Hello Gemini!"},
-            new MessageItemDTO() {Sender="Gemini",Content="Hi there, User!"},
-            new MessageItemDTO() {Sender="Me",Content="How's the weather today?"},
-            new MessageItemDTO() {Sender="Gemini",Content="Perfect for a morning ride!"},
-        };
-
+        private ConversationItemDTO _selectedConversation;
+        private readonly IGeminiService _geminiService;       
         public MainViewModel(IGeminiService geminiService,
             IEventAggregator eventAggregator)
         {
@@ -90,37 +64,32 @@ namespace ChatBot.ViewModel
         }
         public async void SendMessage()
         {
+            IsLoading = true;
             if (_request == null) return;
             _request = await AddRequestToMessages();
             var response = await _geminiService.CreateNewMessage(new CreateNewChatParameters()
             {
                 Content = _request,
                 Sender = "user",
-                ConversationId = "07dee5e3-2aa4-4e3d-acdd-f6b3990a24de"
+                ConversationId = _selectedConversation.Id
             });
             await AddResponseToMessages(response);
+            IsLoading = false;
         }
-        public async void ShowSelectedConversation(int index)
+        public async void ShowMessagesBySelectedConversation(int index)
         {
-            ConversationItemDTO item = Conversations[index];
-            var listMessages = await _geminiService.GetMessagesByConversationId(item.Id);
-            Console.WriteLine(listMessages);
-            //b2: Lấy Messages (nhiều cái Messages) dựa vào Id, nằm trong ConversationItemModel
-            // Lấy bằng cách nào: tạo 1 service lấy Messages, v.d. _messageService.Get(int ConversationId)
-            //b3: Sau khi lấy xong từ _messageService, thì nạp vô cái ObservableCollection<=
-            Messages.Clear();
-
-                foreach (var msg in listMessages)
-                {
-                    Messages.Add(msg);
-                }
-            
+            IsLoading = true;
+            _selectedConversation = Conversations[index];
+            var listMessages = await _geminiService.GetMessagesByConversationId(_selectedConversation.Id);
+            if(listMessages.Count == 0) return;
+            await RefreshMessageList(listMessages);
+            IsLoading = false;
         }
         private async void LoadConversations()
         {
             IsLoading = true;
-            var listConversation = await _geminiService.LoadConversation();
-            
+            var listConversation = await _geminiService.LoadConversationList();
+
             foreach (var conversation in listConversation)
             {
                 Conversations.Add(conversation);
@@ -130,13 +99,7 @@ namespace ChatBot.ViewModel
         }
         private void AddNewConversation(ConversationItemDTO conversationItemModel)
         {
-            _selectedConversationItemModel = conversationItemModel;
             Conversations.Add(conversationItemModel);
-            TellGeminiToApplyPersona();
-        }
-        private void TellGeminiToApplyPersona()
-        {
-
         }
         private async Task<string> AddRequestToMessages()
         {
@@ -172,12 +135,25 @@ namespace ChatBot.ViewModel
             }).Task;
         }
 
+        private async Task RefreshMessageList(List<MessageItemDTO> messages)
+        {
+            await Task.Run(() =>
+            {            
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Messages.Clear();
+
+                    foreach (var msg in messages)
+                    {
+                        Messages.Add(msg);
+                    }
+                });
+            });
+        }
         private void InitializeObjects()
         {
             Conversations = new ObservableCollection<ConversationItemDTO>();
             Messages = new ObservableCollection<MessageItemDTO>();
         }
-
-
     }
 }

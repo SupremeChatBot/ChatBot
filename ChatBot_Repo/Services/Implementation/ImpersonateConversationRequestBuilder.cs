@@ -25,6 +25,7 @@ namespace ChatBot_Repo.Services.Implementation
         }
         private static void ConstructImpersonateConversationRequest()
         {
+            _result = "";
             _result = 
                 $"{{" +
                 $"\"data\":{{" +
@@ -36,6 +37,7 @@ namespace ChatBot_Repo.Services.Implementation
         }
         private static void SerializedSampleMessages()
         {
+            _serializedSampleMessages = "";
             _serializedSampleMessages += '[';
             foreach (var sampleMessage in _request.SampleMessages)
             {

@@ -33,8 +33,7 @@ namespace ChatBot_Repo.Services.Implementation
         {
             var requestString = await ImpersonateConversationRequestBuilder.Build(request);
             _response = await _apiService.PostNewConversation(requestString);
-            await MapResponseToConversationItemDTO();
-            await SaveResponseToConversationsJson();
+            await MapResponseToConversationItemDTO();            
             return _conversationItemDto;
         }
 
@@ -49,17 +48,31 @@ namespace ChatBot_Repo.Services.Implementation
         public async Task<List<MessageItemDTO>> GetMessagesByConversationId(string id)
         {
             _response = await _apiService.GetMessagesByConversationId(id);
-            await MapResponseToMessageItemsDTO();
+            await MapResponseToMessageItemDTOList();
             return _messageItemsDto;
         }
 
-        public async Task<List<ConversationItemDTO>> LoadConversation()
+        public async Task<List<ConversationItemDTO>> LoadConversationList()
         {
             _response = await _apiService.LoadConversations();
-            await MapResponseToConversationItemDTO();
+            await MapResponseToConversationItemDTOList();
             return _listConversation;
         }
 
+        private Task MapResponseToConversationItemDTO()
+        {
+            return Task.Run(() =>
+            {
+                dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
+                string id = deserializedJson.data.conversationId.ToString().Trim('{', '}');
+                string name = deserializedJson.data.name.ToString().Trim('{', '}');                
+                _conversationItemDto = new ConversationItemDTO()
+                {
+                    Id = id,
+                    Name = name,                    
+                };
+            });
+        }
         private Task MapResponseToMessageItemDTO()
         {
             return Task.Run(() =>
@@ -77,11 +90,13 @@ namespace ChatBot_Repo.Services.Implementation
             });
         }
 
-        private Task MapResponseToMessageItemsDTO()
+        private Task MapResponseToMessageItemDTOList()
         {
             return Task.Run(() =>
             {
+                _messageItemsDto.Clear(); 
                 dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
+
                 foreach (dynamic tempMessageDto in deserializedJson.data)
                 {
                     _messageItemsDto.Add(new MessageItemDTO()
@@ -94,13 +109,13 @@ namespace ChatBot_Repo.Services.Implementation
             });
         }
 
-        private Task MapResponseToConversationItemDTO()
+        private Task MapResponseToConversationItemDTOList()
         {
             return Task.Run(() =>
             {
                 dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
-                
-                
+
+                _listConversation.Clear();
                 foreach (dynamic tempMessageDto in deserializedJson.data)
                 {
                     string id = tempMessageDto.conversationId.ToString().Trim('{', '}');
