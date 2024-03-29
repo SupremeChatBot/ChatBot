@@ -125,7 +125,9 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <components:MessageItem Sender="{Binding Sender}"
+                                    <components:MessageItem 
+                                                            ImageUrl="{Binding ImageUrl}"
+                                                            Sender="{Binding Sender}"
                                                             Grid.Row="0"
                                                             Content="{Binding Content}"/>
                                     <DockPanel Height="Auto" Grid.Row="1" Margin="10">

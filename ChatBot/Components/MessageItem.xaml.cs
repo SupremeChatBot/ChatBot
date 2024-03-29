@@ -18,6 +18,11 @@ namespace ChatBot.Components
 
     public partial class MessageItem : UserControl
     {
+        public string ImageUrl
+        {
+            get { return (string)GetValue(ImageUrlProperty); }
+            set { SetValue(ImageUrlProperty, value); }
+        }
         public string Sender
         {
             get { return (string)GetValue(SenderProperty); }
@@ -30,6 +35,8 @@ namespace ChatBot.Components
         }
         public static readonly DependencyProperty SenderProperty =
             DependencyProperty.Register("Sender", typeof(string), typeof(MessageItem));
+        public static readonly DependencyProperty ImageUrlProperty =
+          DependencyProperty.Register("ImageUrl", typeof(string), typeof(MessageItem));
         public static readonly DependencyProperty ContentProp =
             DependencyProperty.Register("Content", typeof(string), typeof(MessageItem));
         public MessageItem()

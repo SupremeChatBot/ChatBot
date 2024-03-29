@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Border CornerRadius="50" Grid.RowSpan="2" Width="70" Height="70" Margin="0,0,20,0">
             <Border.Background>
-                <ImageBrush Stretch="Fill" ImageSource="https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="{Binding ImageUrl,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </Border.Background>
         </Border>
         <TextBlock Text="{Binding Sender,RelativeSource={RelativeSource AncestorType=UserControl}}"

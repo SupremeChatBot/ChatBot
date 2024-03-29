@@ -130,10 +130,11 @@ namespace ChatBot.ViewModel
                 return;
             }
             IsLoading = true;
-            var conversationItemDto = await SendCreateRequestToGemini();            
-            _eventAggregator.Publish(conversationItemDto);
+            var conversationItemDto = await SendCreateRequestToGemini();
+            _eventAggregator.Publish(conversationItemDto);                                
             OnSuccessInsertion.Invoke(this, EventArgs.Empty);
             IsLoading = false;
+         
         }
         private async Task<ConversationItemDTO> SendCreateRequestToGemini()
         {

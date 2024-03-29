@@ -71,7 +71,7 @@ namespace ChatBot.ViewModel
             {
                 Content = _request,
                 Sender = "user",
-                ConversationId = _selectedConversation.Id
+                ConversationId = _selectedConversation.Id                
             });
             await AddResponseToMessages(response);
             IsLoading = false;
@@ -131,6 +131,7 @@ namespace ChatBot.ViewModel
         {
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
+                message.ImageUrl = "https://cdn-icons-png.flaticon.com/512/9485/9485922.png";
                 Messages.Add(message);
             }).Task;
         }
@@ -145,6 +146,10 @@ namespace ChatBot.ViewModel
 
                     foreach (var msg in messages)
                     {
+                        if (msg.Sender.Equals("model")) 
+                            msg.ImageUrl = "https://cdn-icons-png.flaticon.com/512/6584/6584942.png";
+                        else msg.ImageUrl = "https://cdn-icons-png.flaticon.com/512/1144/1144709.png";
+
                         Messages.Add(msg);
                     }
                 });
