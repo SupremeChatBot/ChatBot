@@ -19,11 +19,26 @@ namespace ChatBot_Repo.Services.Implementation
         public ApiService() {
             InitializeObjects();
         }
-        public async Task<HttpResponseMessage> GetConversationById(int conversationId)
+        public async Task<HttpResponseMessage> GetConversationById(string conversationId)
         {
             var response = await httpClient.GetAsync(ApiServiceUrl.GetConversationByIdEndpoint(conversationId));
             return response;
         }
+        public async Task<string> GetMessagesByConversationId(string conversationId)
+        {
+            var response = await httpClient.GetAsync(ApiServiceUrl.GetMessagesByComversationIdEndpoint(conversationId));
+            var responseData = await response.Content.ReadAsStringAsync();
+            return responseData;
+        }
+
+        public async Task<string> PostNewMeassge(string request)
+        {
+            HttpContent content = new StringContent(request, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(ApiServiceUrl.NewMessageEndpoint, content);
+            var responseData = await response.Content.ReadAsStringAsync();
+            return responseData;
+        }
+
         public async Task<string> PostNewConversation(string request)
         {
             HttpContent content = new StringContent(request, Encoding.UTF8, "application/json");

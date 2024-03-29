@@ -3,6 +3,7 @@ using ChatBot_Repo.Entities;
 using ChatBot_Repo.Payload.Request;
 using ChatBot_Repo.Payload.Response;
 using ChatBot_Repo.Utils;
+using GenerativeAI.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,9 @@ namespace ChatBot_Repo.Services.Implementation
         private ApiService _apiService;
         private string _response;
         private ConversationItemDTO _conversationItemDto;
+        private MessageItemDTO _messageItemDto;
+        private List<MessageItemDTO> _messageItemsDto;
+
         public GeminiService()
         {
             InitializeObjects();
@@ -31,7 +35,54 @@ namespace ChatBot_Repo.Services.Implementation
             await SaveResponseToConversationsJson();
             return _conversationItemDto;
         }
-        public async Task<List<MessageItemDTO>> GetMessagesByConversationId(int id) { throw new NotImplementedException(); }
+
+        public async Task<MessageItemDTO> CreateNewMessage(ImpersonateConversationRequest request)
+        {
+            var requestString = await ImpersonateConversationRequestBuilder.Build(request);
+            _response = await _apiService.PostNewMeassge(requestString);
+            await MapResponseToMessageItemDTO();
+            return _messageItemDto;
+        }
+
+        public async Task<List<MessageItemDTO>> GetMessagesByConversationId(string id) {
+            _response = await _apiService.GetMessagesByConversationId(id);
+            await MapResponseToMessageItemsDTO();
+            return _messageItemsDto;
+        }
+
+        private Task MapResponseToMessageItemDTO()
+        {
+            return Task.Run(() =>
+            {
+                dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
+                string id = deserializedJson.data.messageId.ToString().Trim('{', '}');
+                string content = deserializedJson.data.content.ToString().Trim('{', '}');
+                string sender = deserializedJson.data.sender.ToString().Trim('{', '}');
+                _messageItemDto = new MessageItemDTO()
+                {
+                    Id = id,
+                    Content = content,
+                    Sender = sender,
+                };
+            });
+        }
+
+        private Task MapResponseToMessageItemsDTO()
+        {
+            return Task.Run(() =>
+            {
+                dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
+                foreach (dynamic tempMessageDto in deserializedJson.data)
+                {
+                    _messageItemsDto.Add(new MessageItemDTO()
+                    {
+                        Id = tempMessageDto.messageId.ToString().Trim('{', '}'),
+                        Content = tempMessageDto.content.ToString().Trim('{', '}'),
+                        Sender = tempMessageDto.sender.ToString().Trim('{', '}')
+                    });
+                }
+            });
+        }
         private Task MapResponseToConversationItemDTO()
         {
             return Task.Run(() =>
@@ -58,7 +109,8 @@ namespace ChatBot_Repo.Services.Implementation
         
         private void InitializeObjects()
         {
-            _apiService = new ApiService();            
+            _apiService = new ApiService();
+            _messageItemsDto = new List<MessageItemDTO>();
         }
        
     }

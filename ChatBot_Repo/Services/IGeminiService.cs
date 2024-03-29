@@ -11,6 +11,6 @@ namespace ChatBot_Repo.Services
     public interface IGeminiService
     {
         Task<ConversationItemDTO> CreateNewConversation(ImpersonateConversationRequest request);
-        Task<List<MessageItemDTO>> GetMessagesByConversationId(int id);
+        Task<List<MessageItemDTO>> GetMessagesByConversationId(string id);
     }
 }

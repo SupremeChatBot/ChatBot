@@ -10,9 +10,13 @@ namespace ChatBot_Repo.Constants
     {
         private static string _baseUrl = "http://localhost:3002";
         public static string NewConversationEndpoint = $"{_baseUrl}/conversations";
-        public static string GetConversationByIdEndpoint(int id)
+        public static string GetConversationByIdEndpoint(string id)
         {
             return $"{_baseUrl}/conversations/{id}";
+        }
+        public static string GetMessagesByComversationIdEndpoint(string id)
+        {
+            return $"{_baseUrl}/conversations/{id}/messages";
         }
         public static string NewMessageEndpoint = $"{_baseUrl}/messages";        
     }

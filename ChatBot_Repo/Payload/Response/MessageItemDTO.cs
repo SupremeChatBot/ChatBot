@@ -8,7 +8,7 @@ namespace ChatBot_Repo.Payload.Response
 {
     public class MessageItemDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string ImageUrl { get; set; }
         public string Sender { get; set; }
         public string Content { get; set; }
