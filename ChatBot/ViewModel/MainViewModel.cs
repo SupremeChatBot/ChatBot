@@ -22,6 +22,8 @@ using ChatBot_Repo.Entities;
 using ChatBot_Repo.EventAggregator;
 using System.Printing;
 using ChatBot_Repo.Payload.Response;
+using ChatBot_Repo.Payload.Request;
+
 namespace ChatBot.ViewModel
 {
     class MainViewModel : ObservableObject
@@ -91,7 +93,7 @@ namespace ChatBot.ViewModel
         {
             if (_request == null) return;
             _request = await AddRequestToMessages();
-            //_response = await _geminiService.Chat(_request);
+            //_response = await _geminiService.CreateNewConversation();
             await AddResponseToMessages(_response);
         }
         public async void ShowSelectedConversation(int index)
