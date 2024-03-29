@@ -13,6 +13,8 @@ namespace ChatBot_Repo.Services
         Task<ConversationItemDTO> CreateNewConversation(ImpersonateConversationRequest request);
         Task<List<MessageItemDTO>> GetMessagesByConversationId(string id);
 
+        Task<List<ConversationItemDTO>> LoadConversation();
+
         Task<MessageItemDTO> CreateNewMessage(CreateNewChatParameters request);
     }
 }

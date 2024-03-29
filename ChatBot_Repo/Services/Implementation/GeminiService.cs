@@ -22,11 +22,13 @@ namespace ChatBot_Repo.Services.Implementation
         private ConversationItemDTO _conversationItemDto;
         private MessageItemDTO _messageItemDto;
         private List<MessageItemDTO> _messageItemsDto;
+        private List<ConversationItemDTO> _listConversation;
 
         public GeminiService()
         {
             InitializeObjects();
         }
+
         public async Task<ConversationItemDTO> CreateNewConversation(ImpersonateConversationRequest request)
         {
             var requestString = await ImpersonateConversationRequestBuilder.Build(request);
@@ -44,10 +46,18 @@ namespace ChatBot_Repo.Services.Implementation
             return _messageItemDto;
         }
 
-        public async Task<List<MessageItemDTO>> GetMessagesByConversationId(string id) {
+        public async Task<List<MessageItemDTO>> GetMessagesByConversationId(string id)
+        {
             _response = await _apiService.GetMessagesByConversationId(id);
             await MapResponseToMessageItemsDTO();
             return _messageItemsDto;
+        }
+
+        public async Task<List<ConversationItemDTO>> LoadConversation()
+        {
+            _response = await _apiService.LoadConversations();
+            await MapResponseToConversationItemDTO();
+            return _listConversation;
         }
 
         private Task MapResponseToMessageItemDTO()
@@ -83,20 +93,27 @@ namespace ChatBot_Repo.Services.Implementation
                 }
             });
         }
+
         private Task MapResponseToConversationItemDTO()
         {
             return Task.Run(() =>
             {
-                dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);                
-                string id = deserializedJson.data.conversationId.ToString().Trim('{', '}');
-                string name = deserializedJson.data.name.ToString().Trim('{', '}');
-                _conversationItemDto = new ConversationItemDTO()
+                dynamic deserializedJson = JsonUtils.DeserializeJson<dynamic>(_response);
+                
+                
+                foreach (dynamic tempMessageDto in deserializedJson.data)
                 {
-                    Id = id ,
-                    Name = name,                    
-                };
+                    string id = tempMessageDto.conversationId.ToString().Trim('{', '}');
+                    string name = tempMessageDto.name.ToString().Trim('{', '}');
+                    _listConversation.Add(new ConversationItemDTO()
+                    {
+                        Id = id,
+                        Name = name,
+                    });
+                }
             });
         }
+
         private Task SaveResponseToConversationsJson()
         {
             return Task.Run(() =>
@@ -105,13 +122,13 @@ namespace ChatBot_Repo.Services.Implementation
                 JsonUtils.AppendToJson<ConversationItemDTO>(_conversationItemDto, conversationIdFilePath);
             });
         }
-         
-        
+
+
         private void InitializeObjects()
         {
             _apiService = new ApiService();
             _messageItemsDto = new List<MessageItemDTO>();
+            _listConversation = new List<ConversationItemDTO>();
         }
-       
     }
 }

@@ -18,6 +18,12 @@ namespace ChatBot_Repo.Constants
         {
             return $"{_baseUrl}/conversations/{id}/messages";
         }
+
+        public static string LoadConversationsEndPoint()
+        {
+            return $"{_baseUrl}/conversations";
+        }
+        
         public static string NewMessageEndpoint = $"{_baseUrl}/messages";        
     }
 }
