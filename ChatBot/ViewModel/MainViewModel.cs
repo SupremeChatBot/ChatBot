@@ -115,21 +115,14 @@ namespace ChatBot.ViewModel
         private async void LoadConversations()
         {
             IsLoading = true;
-            //B1. Lấy từ Db Lên: List<Conversation> = _conversationService.GetAll()
-            //B2. Map từng Conversation Entity sang ConversationItemModel
-            //List<ConversationItemDTO> conversations = new List<ConversationItemDTO>() {
+            var listConversation = await _geminiService.LoadConversation();
+            
+            foreach (var conversation in listConversation)
+            {
+                Conversations.Add(conversation);
+            }
 
-            //    new ConversationItemDTO()
-            //    {
-
-            //    }
-            //};
-            //Giả lập việc chờ để load dữ liệu
-            await Task.Delay(3000);
             IsLoading = false;
-            //B3. Bốc từng thằng ConversationItemModel nạp vô
-            //ObservableCollection<ConversationItemModel> (load ConversationItemModel lên UI.)
-
         }
         private void AddNewConversation(ConversationItemDTO conversationItemModel)
         {

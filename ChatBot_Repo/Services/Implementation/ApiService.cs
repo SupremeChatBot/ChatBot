@@ -31,6 +31,13 @@ namespace ChatBot_Repo.Services.Implementation
             return responseData;
         }
 
+        public async Task<string> LoadConversations()
+        {
+            var response = await httpClient.GetAsync(ApiServiceUrl.LoadConversationsEndPoint());
+            var responseData = await response.Content.ReadAsStringAsync();
+            return responseData;
+        }
+
         public async Task<string> PostNewMeassge(string request)
         {
             HttpContent content = new StringContent(request, Encoding.UTF8, "application/json");
