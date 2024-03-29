@@ -11,6 +11,6 @@ namespace ChatBot_Repo.Constants
     {
         private static string workingDirectory = Environment.CurrentDirectory;
         private static string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-        public static string ConversationIdJson = $"{projectDirectory}\\ChatBot_Repo\\AppData\\conversations.json";
+        public static string PersonasJson = $"{projectDirectory}\\ChatBot_Repo\\AppData\\personas.json";
     }
 }

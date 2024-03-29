@@ -23,6 +23,7 @@ using ChatBot_Repo.EventAggregator;
 using System.Printing;
 using ChatBot_Repo.Payload.Response;
 using ChatBot_Repo.Payload.Request;
+using ChatBot_Repo.Constants;
 
 namespace ChatBot.ViewModel
 {
@@ -92,7 +93,7 @@ namespace ChatBot.ViewModel
 
             foreach (var conversation in listConversation)
             {
-                Conversations.Add(conversation);
+                AddNewConversation(conversation);
             }
 
             IsLoading = false;
@@ -109,7 +110,7 @@ namespace ChatBot.ViewModel
                 Messages.Add(new MessageItemDTO()
                 {
                     Content = request,
-                    ImageUrl = "https://i.pinimg.com/564x/a5/26/64/a526644653e3aa32e9164430ce66b304.jpg",
+                    ImageUrl = ImageUrl.UserAvatar,
                     Sender = "User"
                 });
             });
@@ -131,7 +132,7 @@ namespace ChatBot.ViewModel
         {
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                message.ImageUrl = "https://cdn-icons-png.flaticon.com/512/9485/9485922.png";
+                message.ImageUrl = ImageUrl.BotAvatar;
                 Messages.Add(message);
             }).Task;
         }
@@ -147,8 +148,8 @@ namespace ChatBot.ViewModel
                     foreach (var msg in messages)
                     {
                         if (msg.Sender.Equals("model")) 
-                            msg.ImageUrl = "https://cdn-icons-png.flaticon.com/512/6584/6584942.png";
-                        else msg.ImageUrl = "https://cdn-icons-png.flaticon.com/512/1144/1144709.png";
+                            msg.ImageUrl = ImageUrl.BotAvatar;
+                        else msg.ImageUrl = ImageUrl.UserAvatar;
 
                         Messages.Add(msg);
                     }
