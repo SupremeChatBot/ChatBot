@@ -34,7 +34,7 @@ namespace ChatBot_Repo.Services.Implementation
         public async Task<MessageItemDTO> CreateNewMessage(CreateNewChatParameters request)
         {
             var requestString = await MessageRequestBuilder.Build(request);
-            var response = await _apiService.PostNewMeassge(requestString);
+            var response = await _apiService.PostNewMessage(requestString);
             var messageItemDto = await ResponseMapperService.MapResponseToMessageItemDTO(response);
             return messageItemDto;
         }

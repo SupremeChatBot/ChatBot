@@ -11,7 +11,7 @@ namespace ChatBot_Repo.Utils
 {
     public static class JsonUtils
     {
-        public static void AppendToJson<T>(T obj,string filePath)
+        public static void AppendToJson<T>(T obj, string filePath)
         {
             var file = File.ReadAllText(filePath);
             var list = JsonConvert.DeserializeObject<List<T>>(file);
@@ -23,5 +23,11 @@ namespace ChatBot_Repo.Utils
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
+        public static List<T> DeserializeJsonList<T>(string filePath)
+        {
+            var file = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<T>>(file);
+        }
+
     }
 }

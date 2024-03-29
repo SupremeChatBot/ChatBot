@@ -38,7 +38,7 @@ namespace ChatBot_Repo.Services.Implementation
             return responseData;
         }
 
-        public async Task<string> PostNewMeassge(string request)
+        public async Task<string> PostNewMessage(string request)
         {
             HttpContent content = new StringContent(request, Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(ApiServiceUrl.NewMessageEndpoint, content);
